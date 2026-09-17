@@ -3,13 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Configurateur Manette Custom</title>
+  <title>Configurateur Manette PS4</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: system-ui, -apple-system, sans-serif;
@@ -21,15 +17,12 @@
     }
 
     header {
-      padding: 20px;
+      padding: 18px;
       text-align: center;
       border-bottom: 1px solid #222;
     }
 
-    h1 {
-      font-size: 1.5rem;
-      font-weight: 600;
-    }
+    h1 { font-size: 1.4rem; font-weight: 600; }
 
     main {
       flex: 1;
@@ -37,170 +30,208 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 40px 20px;
-      gap: 40px;
+      padding: 30px 15px;
+      gap: 28px;
     }
 
     .preview {
-      width: 360px;
-      height: 240px;
-      background: #1a1a1a;
+      width: 380px;
+      height: 260px;
+      background: #161616;
       border: 2px solid #333;
-      border-radius: 16px;
+      border-radius: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
     }
 
+    /* === MANETTE PS4 === */
     .controller {
-      width: 300px;
-      height: 180px;
-      background: #2a2a2a;
-      border-radius: 40px;
+      width: 320px;
+      height: 200px;
+      background: #2b2b2b;
+      border-radius: 48px 48px 38px 38px;
       position: relative;
       transition: background 0.3s ease;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.55);
+    }
+
+    /* Touchpad */
+    .touchpad {
+      position: absolute;
+      top: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 110px;
+      height: 52px;
+      background: #1a1a1a;
+      border-radius: 8px;
+      border: 2px solid #333;
     }
 
     /* Sticks */
     .stick {
-      width: 48px;
-      height: 48px;
+      width: 52px;
+      height: 52px;
       background: #111;
       border-radius: 50%;
       position: absolute;
-      border: 3px solid #444;
+      border: 4px solid #3a3a3a;
     }
-    .stick-left { top: 70px; left: 40px; }
-    .stick-right { top: 70px; right: 40px; }
+    .stick-left  { top: 95px; left: 48px; }
+    .stick-right { top: 95px; right: 48px; }
 
     /* D-pad */
     .dpad {
       position: absolute;
       top: 55px;
-      left: 110px;
-      width: 50px;
-      height: 50px;
+      left: 52px;
+      width: 46px;
+      height: 46px;
     }
-    .dpad::before, .dpad::after {
-      content: '';
+    .dpad span {
       position: absolute;
       background: #111;
-      border-radius: 4px;
+      border-radius: 3px;
     }
-    .dpad::before {
-      width: 18px;
-      height: 50px;
-      left: 16px;
-    }
-    .dpad::after {
-      width: 50px;
-      height: 18px;
-      top: 16px;
-    }
+    .dpad .up    { width: 14px; height: 18px; top: 0; left: 16px; }
+    .dpad .down  { width: 14px; height: 18px; bottom: 0; left: 16px; }
+    .dpad .left  { width: 18px; height: 14px; top: 16px; left: 0; }
+    .dpad .right { width: 18px; height: 14px; top: 16px; right: 0; }
 
-    /* Boutons A B X Y */
-    .buttons {
+    /* Boutons ○ ✕ □ △ */
+    .face-buttons {
       position: absolute;
-      top: 55px;
-      right: 110px;
-      width: 60px;
-      height: 60px;
+      top: 52px;
+      right: 48px;
+      width: 70px;
+      height: 70px;
     }
-    .btn {
-      width: 22px;
-      height: 22px;
-      background: #111;
+    .face {
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
       position: absolute;
-      border: 2px solid #444;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #111;
+      border: 2px solid rgba(0,0,0,0.3);
     }
-    .btn-y { top: 0; left: 19px; background: #f1c40f; }
-    .btn-x { top: 19px; left: 0; background: #3498db; }
-    .btn-b { top: 19px; right: 0; background: #e74c3c; }
-    .btn-a { bottom: 0; left: 19px; background: #2ecc71; }
+    .face.triangle { top: 0; left: 23px; background: #2ecc71; }
+    .face.circle   { top: 23px; right: 0; background: #e74c3c; }
+    .face.cross    { bottom: 0; left: 23px; background: #3498db; }
+    .face.square   { top: 23px; left: 0; background: #9b59b6; }
 
-    /* Triggers */
-    .trigger {
-      width: 50px;
-      height: 14px;
-      background: #111;
-      border-radius: 6px;
+    /* L1 / R1 */
+    .bumper {
       position: absolute;
-      top: 18px;
+      top: 8px;
+      width: 70px;
+      height: 16px;
+      background: #1a1a1a;
+      border-radius: 6px 6px 3px 3px;
     }
-    .trigger-l { left: 40px; }
-    .trigger-r { right: 40px; }
+    .bumper-l { left: 35px; }
+    .bumper-r { right: 35px; }
+
+    /* Options / Share */
+    .small-btn {
+      position: absolute;
+      top: 38px;
+      width: 18px;
+      height: 10px;
+      background: #1a1a1a;
+      border-radius: 3px;
+    }
+    .share   { left: 125px; }
+    .options { right: 125px; }
+
+    /* === CONTRÔLES === */
+    .section { text-align: center; }
+    .section h2 {
+      font-size: 0.9rem;
+      color: #777;
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
 
     .controls {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
       justify-content: center;
-      max-width: 400px;
+      max-width: 440px;
     }
 
     button {
       background: #222;
       color: #fff;
       border: 1px solid #444;
-      padding: 10px 16px;
+      padding: 9px 14px;
       border-radius: 8px;
       cursor: pointer;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       transition: all 0.2s;
     }
-
-    button:hover {
-      background: #333;
-      border-color: #666;
-    }
-
-    button.active {
-      background: #3b82f6;
-      border-color: #3b82f6;
-    }
+    button:hover { background: #333; border-color: #666; }
+    button.active { background: #3b82f6; border-color: #3b82f6; }
   </style>
 </head>
 <body>
   <header>
-    <h1>Configurateur Manette Custom</h1>
+    <h1>Configurateur Manette PS4</h1>
   </header>
 
   <main>
     <div class="preview">
       <div class="controller" id="controller">
-        <div class="trigger trigger-l"></div>
-        <div class="trigger trigger-r"></div>
+        <div class="bumper bumper-l"></div>
+        <div class="bumper bumper-r"></div>
+        <div class="touchpad"></div>
+        <div class="small-btn share"></div>
+        <div class="small-btn options"></div>
+
+        <div class="dpad">
+          <span class="up"></span>
+          <span class="down"></span>
+          <span class="left"></span>
+          <span class="right"></span>
+        </div>
+
         <div class="stick stick-left"></div>
         <div class="stick stick-right"></div>
-        <div class="dpad"></div>
-        <div class="buttons">
-          <div class="btn btn-y"></div>
-          <div class="btn btn-x"></div>
-          <div class="btn btn-b"></div>
-          <div class="btn btn-a"></div>
+
+        <div class="face-buttons">
+          <div class="face triangle">△</div>
+          <div class="face circle">○</div>
+          <div class="face cross">✕</div>
+          <div class="face square">□</div>
         </div>
       </div>
     </div>
 
-    <div class="controls">
-      <button onclick="changeColor('#2a2a2a')" class="active">Noir</button>
-      <button onclick="changeColor('#1e3a5f')">Bleu</button>
-      <button onclick="changeColor('#3d1a1a')">Rouge</button>
-      <button onclick="changeColor('#1a3d1a')">Vert</button>
-      <button onclick="changeColor('#3d3d1a')">Jaune</button>
-      <button onclick="changeColor('#ffffff')">Blanc</button>
-      <button onclick="changeColor('#4a1a6b')">Violet</button>
-      <button onclick="changeColor('#1a4a4a')">Turquoise</button>
+    <div class="section">
+      <h2>Couleur de la coque</h2>
+      <div class="controls" id="shell-controls">
+        <button onclick="changeShell('#2b2b2b')" class="active">Noir</button>
+        <button onclick="changeShell('#1a1a2e')">Bleu Nuit</button>
+        <button onclick="changeShell('#3d1a1a')">Rouge</button>
+        <button onclick="changeShell('#1a3d1a')">Vert</button>
+        <button onclick="changeShell('#f5f5f5')">Blanc</button>
+        <button onclick="changeShell('#4a1a6b')">Violet</button>
+        <button onclick="changeShell('#1a4a4a')">Turquoise</button>
+        <button onclick="changeShell('#5c4033')">Marron</button>
+      </div>
     </div>
   </main>
 
   <script>
-    function changeColor(color) {
+    function changeShell(color) {
       document.getElementById('controller').style.background = color;
-      document.querySelectorAll('.controls button').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('#shell-controls button').forEach(btn => btn.classList.remove('active'));
       event.target.classList.add('active');
     }
   </script>
