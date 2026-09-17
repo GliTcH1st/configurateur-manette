@@ -5,20 +5,75 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Configurateur Manette Custom</title>
   <style>
-    body {
-      font-family: system-ui, sans-serif;
-      background: #111;
-      color: #fff;
-      text-align: center;
+    * {
       margin: 0;
-      padding: 40px 20px;
+      padding: 0;
+      box-sizing: border-box;
     }
-    h1 { margin-bottom: 10px; }
-    p { color: #aaa; }
-  </style>
-</head>
-<body>
-  <h1>Configurateur Manette Custom</h1>
-  <p>Le site est en ligne. On peut commencer à construire.</p>
-</body>
-</html>
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #0f0f0f;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid #222;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      gap: 30px;
+    }
+
+    .preview {
+      width: 320px;
+      height: 220px;
+      background: #1a1a1a;
+      border: 2px solid #333;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .controller {
+      width: 260px;
+      height: 160px;
+      background: #2a2a2a;
+      border-radius: 30px;
+      position: relative;
+      transition: background 0.3s ease;
+    }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    button {
+      background: #222;
+      color: #fff;
+      border: 1px solid #444;
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
