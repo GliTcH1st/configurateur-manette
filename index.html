@@ -67,7 +67,7 @@
   </header>
 
   <div id="canvas-container">
-    <div class="loading" id="loading">Chargement...</div>
+    <div class="loading" id="loading">Chargement de la manette...</div>
   </div>
 
   <div class="controls" id="controls" style="display:none;">
@@ -77,7 +77,6 @@
     <button onclick="changeColor(0x1a5c1a)">Vert</button>
     <button onclick="changeColor(0xf0f0f0)">Blanc</button>
     <button onclick="changeColor(0x5a1a8b)">Violet</button>
-    <button onclick="changeColor(0x1a5c5c)">Turquoise</button>
   </div>
 
   <script type="importmap">
@@ -102,8 +101,7 @@
     scene.background = new THREE.Color(0x111111);
 
     const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
-    // Caméra plus loin
-    camera.position.set(0, 0.5, 3.2);
+    camera.position.set(0, 0.6, 4);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(container.clientWidth, container.clientHeight);
@@ -111,55 +109,58 @@
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     container.appendChild(renderer.domElement);
 
-    scene.add(new THREE.AmbientLight(0xffffff, 0.9));
-    
-    const dirLight = new THREE.DirectionalLight(0xffffff, 1.6);
-    dirLight.position.set(5, 8, 6);
-    scene.add(dirLight);
-
-    const dirLight2 = new THREE.DirectionalLight(0xffffff, 0.6);
-    dirLight2.position.set(-5, 3, -4);
-    scene.add(dirLight2);
+    // Lumières
+    scene.add(new THREE.AmbientLight(0xffffff, 1.1));
+    const light1 = new THREE.DirectionalLight(0xffffff, 1.8);
+    light1.position.set(5, 10, 7);
+    scene.add(light1);
+    const light2 = new THREE.DirectionalLight(0xffffff, 0.7);
+    light2.position.set(-5, 4, -5);
+    scene.add(light2);
 
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.target.set(0, 0, 0);
-    controls.minDistance = 1.5;
-    controls.maxDistance = 6;
 
-    let bodyMaterials = [];
+    let allMaterials = [];
 
     const loader = new GLTFLoader();
-
     loader.load(
       './dualshock_4_playstation_controller%202.glb',
       (gltf) => {
         const model = gltf.scene;
 
-        // Centrer parfaitement
+        // === CENTRAGE FORCÉ ===
         const box = new THREE.Box3().setFromObject(model);
-        const center = box.getCenter(new THREE.Vector3());
-        const size = box.getSize(new THREE.Vector3());
+        const size = new THREE.Vector3();
+        const center = new THREE.Vector3();
+        box.getSize(size);
+        box.getCenter(center);
 
-        model.position.sub(center);
-        const maxDim = Math.max(size.x, size.y, size.z);
-        const scale = 2.2 / maxDim;
-        model.scale.setScalar(scale);
+        // On déplace le modèle pour que son centre soit à (0,0,0)
+        model.position.x -= center.x;
+        model.position.y -= center.y;
+        model.position.z -= center.z;
+
+        // Scale
+        const maxSize = Math.max(size.x, size.y, size.z);
+        const scale = 2.5 / maxSize;
+        model.scale.set(scale, scale, scale);
+
+        // Rotation face caméra
         model.rotation.y = Math.PI;
 
-        // On récupère uniquement les matériaux qui semblent être la coque
+        // Récupération de TOUS les matériaux
         model.traverse((child) => {
-          if (child.isMesh && child.material) {
-            const mats = Array.isArray(child.material) ? child.material : [child.material];
-            mats.forEach(mat => {
-              // On clone et on garde ceux qui ont une couleur (pas les textures complexes de boutons)
-              const cloned = mat.clone();
-              if (cloned.color) {
-                bodyMaterials.push(cloned);
-                // On remplace le matériau sur le mesh
+          if (child.isMesh) {
+            const materials = Array.isArray(child.material) ? child.material : [child.material];
+            materials.forEach((mat, index) => {
+              if (mat) {
+                const cloned = mat.clone();
+                allMaterials.push(cloned);
+                
                 if (Array.isArray(child.material)) {
-                  const idx = child.material.indexOf(mat);
-                  if (idx !== -1) child.material[idx] = cloned;
+                  child.material[index] = cloned;
                 } else {
                   child.material = cloned;
                 }
@@ -171,22 +172,25 @@
         scene.add(model);
         loading.style.display = 'none';
         controlsDiv.style.display = 'flex';
+
+        console.log('Manette chargée. Nombre de matériaux:', allMaterials.length);
       },
       (xhr) => {
-        if (xhr.total) {
-          loading.textContent = `Chargement... ${Math.round(xhr.loaded / xhr.total * 100)}%`;
+        if (xhr.total > 0) {
+          loading.textContent = `Chargement... ${Math.round((xhr.loaded / xhr.total) * 100)}%`;
         }
       },
-      (error) => {
-        console.error(error);
-        loading.textContent = 'Erreur de chargement';
+      (err) => {
+        console.error(err);
+        loading.textContent = 'Erreur de chargement du modèle';
       }
     );
 
     window.changeColor = function(hex) {
-      bodyMaterials.forEach(mat => {
-        if (mat.color) {
+      allMaterials.forEach(mat => {
+        if (mat && mat.color) {
           mat.color.setHex(hex);
+          mat.needsUpdate = true;
         }
       });
       document.querySelectorAll('#controls button').forEach(btn => btn.classList.remove('active'));
