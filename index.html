@@ -9,7 +9,7 @@
 
     body {
       font-family: system-ui, -apple-system, sans-serif;
-      background: #0f0f0f;
+      background: #0a0a0a;
       color: #fff;
       min-height: 100vh;
       display: flex;
@@ -17,12 +17,12 @@
     }
 
     header {
-      padding: 16px;
+      padding: 18px;
       text-align: center;
       border-bottom: 1px solid #222;
     }
 
-    h1 { font-size: 1.3rem; font-weight: 600; }
+    h1 { font-size: 1.35rem; font-weight: 600; }
 
     main {
       flex: 1;
@@ -30,168 +30,65 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 25px 15px;
-      gap: 25px;
+      padding: 30px 15px;
+      gap: 30px;
     }
 
     .preview {
-      width: 420px;
-      height: 280px;
-      background: #141414;
-      border: 2px solid #2a2a2a;
-      border-radius: 16px;
+      width: 100%;
+      max-width: 520px;
       display: flex;
-      align-items: center;
       justify-content: center;
-    }
-
-    /* === FORME DUALSHOCK 4 === */
-    .controller {
-      width: 340px;
-      height: 155px;
-      background: #2b2b2b;
-      border-radius: 30px 30px 20px 20px;
-      position: relative;
-      transition: background 0.3s ease;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-    }
-
-    /* Poignées (handles) */
-    .controller::before,
-    .controller::after {
-      content: '';
-      position: absolute;
-      bottom: -38px;
-      width: 95px;
-      height: 95px;
-      background: inherit;
-      border-radius: 50%;
-      z-index: -1;
-    }
-    .controller::before { left: 8px; }
-    .controller::after  { right: 8px; }
-
-    /* Touchpad */
-    .touchpad {
-      position: absolute;
-      top: 22px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 115px;
-      height: 55px;
-      background: #1c1c1c;
-      border-radius: 10px;
-      border: 2px solid #333;
-    }
-
-    /* Sticks */
-    .stick {
-      width: 50px;
-      height: 50px;
-      background: #111;
-      border-radius: 50%;
-      position: absolute;
-      border: 4px solid #3a3a3a;
-      top: 85px;
-    }
-    .stick-left  { left: 55px; }
-    .stick-right { right: 55px; }
-
-    /* D-pad */
-    .dpad {
-      position: absolute;
-      top: 48px;
-      left: 58px;
-      width: 42px;
-      height: 42px;
-    }
-    .dpad span {
-      position: absolute;
-      background: #111;
-      border-radius: 3px;
-    }
-    .dpad .up    { width: 13px; height: 16px; top: 0; left: 14.5px; }
-    .dpad .down  { width: 13px; height: 16px; bottom: 0; left: 14.5px; }
-    .dpad .left  { width: 16px; height: 13px; top: 14.5px; left: 0; }
-    .dpad .right { width: 16px; height: 13px; top: 14.5px; right: 0; }
-
-    /* Boutons face */
-    .face-buttons {
-      position: absolute;
-      top: 45px;
-      right: 52px;
-      width: 68px;
-      height: 68px;
-    }
-    .face {
-      width: 23px;
-      height: 23px;
-      border-radius: 50%;
-      position: absolute;
-      display: flex;
       align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 700;
-      color: #111;
     }
-    .face.triangle { top: 0; left: 22.5px; background: #2ecc71; }
-    .face.circle   { top: 22.5px; right: 0; background: #e74c3c; }
-    .face.cross    { bottom: 0; left: 22.5px; background: #3498db; }
-    .face.square   { top: 22.5px; left: 0; background: #9b59b6; }
 
-    /* L1 R1 */
-    .bumper {
-      position: absolute;
-      top: 6px;
-      width: 75px;
-      height: 15px;
-      background: #1a1a1a;
-      border-radius: 5px 5px 2px 2px;
+    .controller-img {
+      width: 100%;
+      max-width: 480px;
+      height: auto;
+      transition: filter 0.35s ease;
+      filter: brightness(1) hue-rotate(0deg) saturate(1);
     }
-    .bumper-l { left: 40px; }
-    .bumper-r { right: 40px; }
 
-    /* Share / Options */
-    .small-btn {
-      position: absolute;
-      top: 32px;
-      width: 16px;
-      height: 9px;
-      background: #1a1a1a;
-      border-radius: 3px;
+    .section {
+      text-align: center;
     }
-    .share   { left: 135px; }
-    .options { right: 135px; }
 
-    /* Contrôles */
-    .section { text-align: center; }
     .section h2 {
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       color: #777;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      font-weight: 500;
     }
 
     .controls {
       display: flex;
-      gap: 7px;
+      gap: 8px;
       flex-wrap: wrap;
       justify-content: center;
-      max-width: 460px;
+      max-width: 480px;
     }
 
     button {
-      background: #222;
+      background: #1f1f1f;
       color: #fff;
       border: 1px solid #444;
-      padding: 8px 13px;
-      border-radius: 7px;
+      padding: 9px 15px;
+      border-radius: 8px;
       cursor: pointer;
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       transition: all 0.2s;
     }
-    button:hover { background: #333; border-color: #666; }
-    button.active { background: #3b82f6; border-color: #3b82f6; }
+
+    button:hover {
+      background: #2a2a2a;
+      border-color: #666;
+    }
+
+    button.active {
+      background: #3b82f6;
+      border-color: #3b82f6;
+    }
   </style>
 </head>
 <body>
@@ -201,50 +98,59 @@
 
   <main>
     <div class="preview">
-      <div class="controller" id="controller">
-        <div class="bumper bumper-l"></div>
-        <div class="bumper bumper-r"></div>
-        <div class="touchpad"></div>
-        <div class="small-btn share"></div>
-        <div class="small-btn options"></div>
-
-        <div class="dpad">
-          <span class="up"></span>
-          <span class="down"></span>
-          <span class="left"></span>
-          <span class="right"></span>
-        </div>
-
-        <div class="stick stick-left"></div>
-        <div class="stick stick-right"></div>
-
-        <div class="face-buttons">
-          <div class="face triangle">△</div>
-          <div class="face circle">○</div>
-          <div class="face cross">✕</div>
-          <div class="face square">□</div>
-        </div>
-      </div>
+      <img 
+        src="https://www.pngkey.com/png/full/199-1998054_playstation-sony-dualshock-4-gamepad-black.png" 
+        alt="Manette PS4" 
+        class="controller-img" 
+        id="controller"
+      >
     </div>
 
     <div class="section">
       <h2>Couleur de la coque</h2>
       <div class="controls" id="shell-controls">
-        <button onclick="changeShell('#2b2b2b')" class="active">Noir</button>
-        <button onclick="changeShell('#1a1a2e')">Bleu Nuit</button>
-        <button onclick="changeShell('#3d1a1a')">Rouge</button>
-        <button onclick="changeShell('#1a3d1a')">Vert</button>
-        <button onclick="changeShell('#f0f0f0')">Blanc</button>
-        <button onclick="changeShell('#4a1a6b')">Violet</button>
-        <button onclick="changeShell('#1a4a4a')">Turquoise</button>
-        <button onclick="changeShell('#5c4033')">Marron</button>
+        <button onclick="changeColor('none')" class="active">Noir</button>
+        <button onclick="changeColor('blue')">Bleu</button>
+        <button onclick="changeColor('red')">Rouge</button>
+        <button onclick="changeColor('green')">Vert</button>
+        <button onclick="changeColor('purple')">Violet</button>
+        <button onclick="changeColor('cyan')">Turquoise</button>
+        <button onclick="changeColor('gold')">Doré</button>
+        <button onclick="changeColor('white')">Blanc</button>
       </div>
     </div>
   </main>
 
   <script>
-    function changeShell(color) {
-      document.getElementById('controller').style.background = color;
+    function changeColor(type) {
+      const img = document.getElementById('controller');
+
+      // Reset
+      img.style.filter = 'brightness(1) hue-rotate(0deg) saturate(1)';
+
+      if (type === 'blue') {
+        img.style.filter = 'brightness(0.95) hue-rotate(200deg) saturate(1.4)';
+      }
+      if (type === 'red') {
+        img.style.filter = 'brightness(0.9) hue-rotate(320deg) saturate(1.6)';
+      }
+      if (type === 'green') {
+        img.style.filter = 'brightness(0.95) hue-rotate(90deg) saturate(1.5)';
+      }
+      if (type === 'purple') {
+        img.style.filter = 'brightness(0.9) hue-rotate(250deg) saturate(1.5)';
+      }
+      if (type === 'cyan') {
+        img.style.filter = 'brightness(1) hue-rotate(160deg) saturate(1.4)';
+      }
+      if (type === 'gold') {
+        img.style.filter = 'brightness(1.15) hue-rotate(35deg) saturate(1.8)';
+      }
+      if (type === 'white') {
+        img.style.filter = 'brightness(2.2) saturate(0) contrast(1.1)';
+      }
+
+      // Active button
       document.querySelectorAll('#shell-controls button').forEach(btn => btn.classList.remove('active'));
       event.target.classList.add('active');
     }
