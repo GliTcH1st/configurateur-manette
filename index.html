@@ -38,12 +38,12 @@
       align-items: center;
       justify-content: center;
       padding: 40px 20px;
-      gap: 30px;
+      gap: 40px;
     }
 
     .preview {
-      width: 320px;
-      height: 220px;
+      width: 360px;
+      height: 240px;
       background: #1a1a1a;
       border: 2px solid #333;
       border-radius: 16px;
@@ -51,33 +51,104 @@
       align-items: center;
       justify-content: center;
       position: relative;
-      overflow: hidden;
     }
 
     .controller {
-      width: 260px;
-      height: 160px;
+      width: 300px;
+      height: 180px;
       background: #2a2a2a;
-      border-radius: 30px;
+      border-radius: 40px;
       position: relative;
       transition: background 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
+
+    /* Sticks */
+    .stick {
+      width: 48px;
+      height: 48px;
+      background: #111;
+      border-radius: 50%;
+      position: absolute;
+      border: 3px solid #444;
+    }
+    .stick-left { top: 70px; left: 40px; }
+    .stick-right { top: 70px; right: 40px; }
+
+    /* D-pad */
+    .dpad {
+      position: absolute;
+      top: 55px;
+      left: 110px;
+      width: 50px;
+      height: 50px;
+    }
+    .dpad::before, .dpad::after {
+      content: '';
+      position: absolute;
+      background: #111;
+      border-radius: 4px;
+    }
+    .dpad::before {
+      width: 18px;
+      height: 50px;
+      left: 16px;
+    }
+    .dpad::after {
+      width: 50px;
+      height: 18px;
+      top: 16px;
+    }
+
+    /* Boutons A B X Y */
+    .buttons {
+      position: absolute;
+      top: 55px;
+      right: 110px;
+      width: 60px;
+      height: 60px;
+    }
+    .btn {
+      width: 22px;
+      height: 22px;
+      background: #111;
+      border-radius: 50%;
+      position: absolute;
+      border: 2px solid #444;
+    }
+    .btn-y { top: 0; left: 19px; background: #f1c40f; }
+    .btn-x { top: 19px; left: 0; background: #3498db; }
+    .btn-b { top: 19px; right: 0; background: #e74c3c; }
+    .btn-a { bottom: 0; left: 19px; background: #2ecc71; }
+
+    /* Triggers */
+    .trigger {
+      width: 50px;
+      height: 14px;
+      background: #111;
+      border-radius: 6px;
+      position: absolute;
+      top: 18px;
+    }
+    .trigger-l { left: 40px; }
+    .trigger-r { right: 40px; }
 
     .controls {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
       justify-content: center;
+      max-width: 400px;
     }
 
     button {
       background: #222;
       color: #fff;
       border: 1px solid #444;
-      padding: 10px 18px;
+      padding: 10px 16px;
       border-radius: 8px;
       cursor: pointer;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       transition: all 0.2s;
     }
 
@@ -99,7 +170,19 @@
 
   <main>
     <div class="preview">
-      <div class="controller" id="controller"></div>
+      <div class="controller" id="controller">
+        <div class="trigger trigger-l"></div>
+        <div class="trigger trigger-r"></div>
+        <div class="stick stick-left"></div>
+        <div class="stick stick-right"></div>
+        <div class="dpad"></div>
+        <div class="buttons">
+          <div class="btn btn-y"></div>
+          <div class="btn btn-x"></div>
+          <div class="btn btn-b"></div>
+          <div class="btn btn-a"></div>
+        </div>
+      </div>
     </div>
 
     <div class="controls">
@@ -109,13 +192,15 @@
       <button onclick="changeColor('#1a3d1a')">Vert</button>
       <button onclick="changeColor('#3d3d1a')">Jaune</button>
       <button onclick="changeColor('#ffffff')">Blanc</button>
+      <button onclick="changeColor('#4a1a6b')">Violet</button>
+      <button onclick="changeColor('#1a4a4a')">Turquoise</button>
     </div>
   </main>
 
   <script>
     function changeColor(color) {
       document.getElementById('controller').style.background = color;
-      document.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.controls button').forEach(btn => btn.classList.remove('active'));
       event.target.classList.add('active');
     }
   </script>
