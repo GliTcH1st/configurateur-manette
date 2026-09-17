@@ -45,7 +45,7 @@
       align-items: center;
       background: #111;
       border-radius: 16px;
-      padding: 20px;
+      padding: 25px;
       border: 1px solid #222;
     }
 
@@ -53,7 +53,7 @@
       width: 100%;
       max-width: 460px;
       height: auto;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.25s ease;
     }
 
     .section {
@@ -72,7 +72,7 @@
       gap: 8px;
       flex-wrap: wrap;
       justify-content: center;
-      max-width: 500px;
+      max-width: 520px;
     }
 
     button {
@@ -107,7 +107,7 @@
       <img 
         id="controller"
         class="controller-img"
-        src="https://www.pngkey.com/png/full/199-1998054_playstation-sony-dualshock-4-gamepad-black.png"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/DualShock_4.jpg/1280px-DualShock_4.jpg"
         alt="Manette PS4"
       >
     </div>
@@ -116,45 +116,35 @@
       <h2>Choisis ta couleur</h2>
       <div class="controls" id="controls">
         <button onclick="changeColor('black')" class="active">Noir</button>
+        <button onclick="changeColor('white')">Blanc</button>
         <button onclick="changeColor('blue')">Bleu</button>
         <button onclick="changeColor('red')">Rouge</button>
-        <button onclick="changeColor('white')">Blanc</button>
         <button onclick="changeColor('gold')">Doré</button>
       </div>
     </div>
   </main>
 
   <script>
+    // Images de DualShock 4 (sources publiques)
     const images = {
-      black: "https://www.pngkey.com/png/full/199-1998054_playstation-sony-dualshock-4-gamepad-black.png",
-      blue: "https://www.pngkey.com/png/full/199-1998054_playstation-sony-dualshock-4-gamepad-black.png",
-      red: "https://www.pngkey.com/png/full/199-1998054_playstation-sony-dualshock-4-gamepad-black.png",
-      white: "https://www.pngkey.com/png/full/199-1998054_playstation-sony-dualshock-4-gamepad-black.png",
-      gold: "https://www.pngkey.com/png/full/199-1998054_playstation-sony-dualshock-4-gamepad-black.png"
+      black: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/DualShock_4.jpg/1280px-DualShock_4.jpg",
+      white: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/DualShock_4_White.jpg/1280px-DualShock_4_White.jpg",
+      blue: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/DualShock_4.jpg/1280px-DualShock_4.jpg",
+      red: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/DualShock_4.jpg/1280px-DualShock_4.jpg",
+      gold: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/DualShock_4.jpg/1280px-DualShock_4.jpg"
     };
 
     function changeColor(color) {
       const img = document.getElementById('controller');
-      img.style.opacity = 0.3;
-
+      
+      img.style.opacity = 0.4;
+      
       setTimeout(() => {
-        // Pour l’instant on utilise la même image + filtre
-        // On améliorera avec de vraies photos ensuite
-        if (color === 'black') {
-          img.style.filter = 'none';
-        } else if (color === 'blue') {
-          img.style.filter = 'hue-rotate(200deg) saturate(1.4)';
-        } else if (color === 'red') {
-          img.style.filter = 'hue-rotate(320deg) saturate(1.5)';
-        } else if (color === 'white') {
-          img.style.filter = 'brightness(2.4) saturate(0)';
-        } else if (color === 'gold') {
-          img.style.filter = 'hue-rotate(35deg) saturate(1.8) brightness(1.15)';
-        }
-
+        img.src = images[color];
         img.style.opacity = 1;
-      }, 150);
+      }, 180);
 
+      // Active button
       document.querySelectorAll('#controls button').forEach(btn => btn.classList.remove('active'));
       event.target.classList.add('active');
     }
