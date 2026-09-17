@@ -3,157 +3,171 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Configurateur Manette PS4</title>
+  <title>Configurateur Manette PS4 3D</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     body {
-      font-family: system-ui, -apple-system, sans-serif;
+      font-family: system-ui, sans-serif;
       background: #0a0a0a;
       color: #fff;
-      min-height: 100vh;
+      height: 100vh;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
     }
-
     header {
-      padding: 18px;
+      padding: 14px;
       text-align: center;
       border-bottom: 1px solid #222;
+      z-index: 10;
     }
-
-    h1 { font-size: 1.35rem; font-weight: 600; }
-
-    main {
+    h1 { font-size: 1.2rem; font-weight: 600; }
+    #canvas-container {
       flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 30px 15px;
-      gap: 30px;
+      position: relative;
     }
-
-    .preview {
-      width: 100%;
-      max-width: 520px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .controller-img {
-      width: 100%;
-      max-width: 480px;
-      height: auto;
-      transition: filter 0.35s ease;
-      filter: brightness(1) hue-rotate(0deg) saturate(1);
-    }
-
-    .section {
-      text-align: center;
-    }
-
-    .section h2 {
-      font-size: 0.9rem;
-      color: #777;
-      margin-bottom: 12px;
-      font-weight: 500;
-    }
-
+    canvas { display: block; width: 100% !important; height: 100% !important; }
     .controls {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
       justify-content: center;
-      max-width: 480px;
+      z-index: 10;
+      max-width: 90%;
     }
-
     button {
       background: #1f1f1f;
       color: #fff;
       border: 1px solid #444;
-      padding: 9px 15px;
+      padding: 9px 14px;
       border-radius: 8px;
       cursor: pointer;
       font-size: 0.85rem;
-      transition: all 0.2s;
     }
-
-    button:hover {
-      background: #2a2a2a;
-      border-color: #666;
-    }
-
-    button.active {
-      background: #3b82f6;
-      border-color: #3b82f6;
+    button:hover { background: #2a2a2a; }
+    button.active { background: #3b82f6; border-color: #3b82f6; }
+    .loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #888;
+      font-size: 0.95rem;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Configurateur Manette PS4</h1>
+    <h1>Configurateur Manette PS4 — 3D</h1>
   </header>
 
-  <main>
-    <div class="preview">
-      <img 
-        src="https://www.pngkey.com/png/full/199-1998054_playstation-sony-dualshock-4-gamepad-black.png" 
-        alt="Manette PS4" 
-        class="controller-img" 
-        id="controller"
-      >
-    </div>
+  <div id="canvas-container">
+    <div class="loading" id="loading">Chargement du modèle 3D...</div>
+  </div>
 
-    <div class="section">
-      <h2>Couleur de la coque</h2>
-      <div class="controls" id="shell-controls">
-        <button onclick="changeColor('none')" class="active">Noir</button>
-        <button onclick="changeColor('blue')">Bleu</button>
-        <button onclick="changeColor('red')">Rouge</button>
-        <button onclick="changeColor('green')">Vert</button>
-        <button onclick="changeColor('purple')">Violet</button>
-        <button onclick="changeColor('cyan')">Turquoise</button>
-        <button onclick="changeColor('gold')">Doré</button>
-        <button onclick="changeColor('white')">Blanc</button>
-      </div>
-    </div>
-  </main>
+  <div class="controls" id="controls" style="display:none;">
+    <button onclick="changeColor(0x2b2b2b)" class="active">Noir</button>
+    <button onclick="changeColor(0x1a3a6e)">Bleu</button>
+    <button onclick="changeColor(0x8b1a1a)">Rouge</button>
+    <button onclick="changeColor(0x1a5c1a)">Vert</button>
+    <button onclick="changeColor(0xf0f0f0)">Blanc</button>
+    <button onclick="changeColor(0x5a1a8b)">Violet</button>
+  </div>
 
-  <script>
-    function changeColor(type) {
-      const img = document.getElementById('controller');
-
-      // Reset
-      img.style.filter = 'brightness(1) hue-rotate(0deg) saturate(1)';
-
-      if (type === 'blue') {
-        img.style.filter = 'brightness(0.95) hue-rotate(200deg) saturate(1.4)';
-      }
-      if (type === 'red') {
-        img.style.filter = 'brightness(0.9) hue-rotate(320deg) saturate(1.6)';
-      }
-      if (type === 'green') {
-        img.style.filter = 'brightness(0.95) hue-rotate(90deg) saturate(1.5)';
-      }
-      if (type === 'purple') {
-        img.style.filter = 'brightness(0.9) hue-rotate(250deg) saturate(1.5)';
-      }
-      if (type === 'cyan') {
-        img.style.filter = 'brightness(1) hue-rotate(160deg) saturate(1.4)';
-      }
-      if (type === 'gold') {
-        img.style.filter = 'brightness(1.15) hue-rotate(35deg) saturate(1.8)';
-      }
-      if (type === 'white') {
-        img.style.filter = 'brightness(2.2) saturate(0) contrast(1.1)';
-      }
-
-      // Active button
-      document.querySelectorAll('#shell-controls button').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
     }
+  }
+  </script>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+    const container = document.getElementById('canvas-container');
+    const loading = document.getElementById('loading');
+    const controlsDiv = document.getElementById('controls');
+
+    // Scene
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x0a0a0a);
+
+    // Camera
+    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
+    camera.position.set(0, 0.3, 1.4);
+
+    // Renderer
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    container.appendChild(renderer.domElement);
+
+    // Lights
+    const ambient = new THREE.AmbientLight(0xffffff, 0.6);
+    scene.add(ambient);
+
+    const dirLight = new THREE.DirectionalLight(0xffffff, 1.2);
+    dirLight.position.set(3, 5, 4);
+    scene.add(dirLight);
+
+    const dirLight2 = new THREE.DirectionalLight(0xffffff, 0.4);
+    dirLight2.position.set(-3, 2, -2);
+    scene.add(dirLight2);
+
+    // Controls
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.08;
+    controls.minDistance = 0.8;
+    controls.maxDistance = 3;
+
+    let controllerModel = null;
+    let bodyMaterial = null;
+
+    // Pour l’instant on met une forme simple en attendant le vrai modèle
+    // On remplacera ça juste après
+    const geometry = new THREE.BoxGeometry(1.2, 0.45, 0.7);
+    const material = new THREE.MeshStandardMaterial({ color: 0x2b2b2b, roughness: 0.4, metalness: 0.1 });
+    const tempMesh = new THREE.Mesh(geometry, material);
+    scene.add(tempMesh);
+    bodyMaterial = material;
+    controllerModel = tempMesh;
+
+    loading.style.display = 'none';
+    controlsDiv.style.display = 'flex';
+
+    // Changement de couleur
+    window.changeColor = function(hex) {
+      if (bodyMaterial) {
+        bodyMaterial.color.setHex(hex);
+      }
+      document.querySelectorAll('#controls button').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+    };
+
+    // Resize
+    window.addEventListener('resize', () => {
+      camera.aspect = container.clientWidth / container.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.clientWidth, container.clientHeight);
+    });
+
+    // Animation
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
   </script>
 </body>
 </html>
