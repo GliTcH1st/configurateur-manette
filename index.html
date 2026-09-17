@@ -3,212 +3,161 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Configurateur Manette PS4 3D</title>
+  <title>Configurateur Manette PS4</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
-      font-family: system-ui, sans-serif;
+      font-family: system-ui, -apple-system, sans-serif;
       background: #0a0a0a;
       color: #fff;
-      height: 100vh;
-      overflow: hidden;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
+
     header {
-      padding: 14px;
+      padding: 18px;
       text-align: center;
       border-bottom: 1px solid #222;
-      z-index: 10;
     }
-    h1 { font-size: 1.2rem; font-weight: 600; }
-    #canvas-container {
+
+    h1 {
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    main {
       flex: 1;
-      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 15px;
+      gap: 30px;
     }
-    canvas { display: block; width: 100% !important; height: 100% !important; }
+
+    .preview {
+      width: 100%;
+      max-width: 520px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #111;
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid #222;
+    }
+
+    .controller-img {
+      width: 100%;
+      max-width: 460px;
+      height: auto;
+      transition: opacity 0.3s ease;
+    }
+
+    .section {
+      text-align: center;
+    }
+
+    .section h2 {
+      font-size: 0.9rem;
+      color: #777;
+      margin-bottom: 14px;
+      font-weight: 500;
+    }
+
     .controls {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
       justify-content: center;
-      z-index: 10;
-      max-width: 95%;
+      max-width: 500px;
     }
+
     button {
       background: #1f1f1f;
       color: #fff;
       border: 1px solid #444;
-      padding: 9px 14px;
+      padding: 10px 16px;
       border-radius: 8px;
       cursor: pointer;
       font-size: 0.85rem;
+      transition: all 0.2s;
     }
-    button:hover { background: #2a2a2a; }
-    button.active { background: #3b82f6; border-color: #3b82f6; }
-    .loading {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: #aaa;
-      font-size: 1rem;
-      text-align: center;
+
+    button:hover {
+      background: #2a2a2a;
+      border-color: #666;
+    }
+
+    button.active {
+      background: #3b82f6;
+      border-color: #3b82f6;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Configurateur Manette PS4 — 3D</h1>
+    <h1>Configurateur Manette PS4</h1>
   </header>
 
-  <div id="canvas-container">
-    <div class="loading" id="loading">Chargement de la manette...</div>
-  </div>
+  <main>
+    <div class="preview">
+      <img 
+        id="controller"
+        class="controller-img"
+        src="https://www.pngkey.com/png/full/199-1998054_playstation-sony-dualshock-4-gamepad-black.png"
+        alt="Manette PS4"
+      >
+    </div>
 
-  <div class="controls" id="controls" style="display:none;">
-    <button onclick="changeColor(0x2b2b2b)" class="active">Noir</button>
-    <button onclick="changeColor(0x1a3a6e)">Bleu</button>
-    <button onclick="changeColor(0x8b1a1a)">Rouge</button>
-    <button onclick="changeColor(0x1a5c1a)">Vert</button>
-    <button onclick="changeColor(0xf0f0f0)">Blanc</button>
-    <button onclick="changeColor(0x5a1a8b)">Violet</button>
-  </div>
+    <div class="section">
+      <h2>Choisis ta couleur</h2>
+      <div class="controls" id="controls">
+        <button onclick="changeColor('black')" class="active">Noir</button>
+        <button onclick="changeColor('blue')">Bleu</button>
+        <button onclick="changeColor('red')">Rouge</button>
+        <button onclick="changeColor('white')">Blanc</button>
+        <button onclick="changeColor('gold')">Doré</button>
+      </div>
+    </div>
+  </main>
 
-  <script type="importmap">
-  {
-    "imports": {
-      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
-    }
-  }
-  </script>
-
-  <script type="module">
-    import * as THREE from 'three';
-    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-
-    const container = document.getElementById('canvas-container');
-    const loading = document.getElementById('loading');
-    const controlsDiv = document.getElementById('controls');
-
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x111111);
-
-    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
-    camera.position.set(0, 0.6, 4);
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
-    container.appendChild(renderer.domElement);
-
-    // Lumières
-    scene.add(new THREE.AmbientLight(0xffffff, 1.1));
-    const light1 = new THREE.DirectionalLight(0xffffff, 1.8);
-    light1.position.set(5, 10, 7);
-    scene.add(light1);
-    const light2 = new THREE.DirectionalLight(0xffffff, 0.7);
-    light2.position.set(-5, 4, -5);
-    scene.add(light2);
-
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.target.set(0, 0, 0);
-
-    let allMaterials = [];
-
-    const loader = new GLTFLoader();
-    loader.load(
-      './dualshock_4_playstation_controller%202.glb',
-      (gltf) => {
-        const model = gltf.scene;
-
-        // === CENTRAGE FORCÉ ===
-        const box = new THREE.Box3().setFromObject(model);
-        const size = new THREE.Vector3();
-        const center = new THREE.Vector3();
-        box.getSize(size);
-        box.getCenter(center);
-
-        // On déplace le modèle pour que son centre soit à (0,0,0)
-        model.position.x -= center.x;
-        model.position.y -= center.y;
-        model.position.z -= center.z;
-
-        // Scale
-        const maxSize = Math.max(size.x, size.y, size.z);
-        const scale = 2.5 / maxSize;
-        model.scale.set(scale, scale, scale);
-
-        // Rotation face caméra
-        model.rotation.y = Math.PI;
-
-        // Récupération de TOUS les matériaux
-        model.traverse((child) => {
-          if (child.isMesh) {
-            const materials = Array.isArray(child.material) ? child.material : [child.material];
-            materials.forEach((mat, index) => {
-              if (mat) {
-                const cloned = mat.clone();
-                allMaterials.push(cloned);
-                
-                if (Array.isArray(child.material)) {
-                  child.material[index] = cloned;
-                } else {
-                  child.material = cloned;
-                }
-              }
-            });
-          }
-        });
-
-        scene.add(model);
-        loading.style.display = 'none';
-        controlsDiv.style.display = 'flex';
-
-        console.log('Manette chargée. Nombre de matériaux:', allMaterials.length);
-      },
-      (xhr) => {
-        if (xhr.total > 0) {
-          loading.textContent = `Chargement... ${Math.round((xhr.loaded / xhr.total) * 100)}%`;
-        }
-      },
-      (err) => {
-        console.error(err);
-        loading.textContent = 'Erreur de chargement du modèle';
-      }
-    );
-
-    window.changeColor = function(hex) {
-      allMaterials.forEach(mat => {
-        if (mat && mat.color) {
-          mat.color.setHex(hex);
-          mat.needsUpdate = true;
-        }
-      });
-      document.querySelectorAll('#controls button').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
+  <script>
+    const images = {
+      black: "https://www.pngkey.com/png/full/199-1998054_playstation-sony-dualshock-4-gamepad-black.png",
+      blue: "https://www.pngkey.com/png/full/199-1998054_playstation-sony-dualshock-4-gamepad-black.png",
+      red: "https://www.pngkey.com/png/full/199-1998054_playstation-sony-dualshock-4-gamepad-black.png",
+      white: "https://www.pngkey.com/png/full/199-1998054_playstation-sony-dualshock-4-gamepad-black.png",
+      gold: "https://www.pngkey.com/png/full/199-1998054_playstation-sony-dualshock-4-gamepad-black.png"
     };
 
-    window.addEventListener('resize', () => {
-      camera.aspect = container.clientWidth / container.clientHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(container.clientWidth, container.clientHeight);
-    });
+    function changeColor(color) {
+      const img = document.getElementById('controller');
+      img.style.opacity = 0.3;
 
-    function animate() {
-      requestAnimationFrame(animate);
-      controls.update();
-      renderer.render(scene, camera);
+      setTimeout(() => {
+        // Pour l’instant on utilise la même image + filtre
+        // On améliorera avec de vraies photos ensuite
+        if (color === 'black') {
+          img.style.filter = 'none';
+        } else if (color === 'blue') {
+          img.style.filter = 'hue-rotate(200deg) saturate(1.4)';
+        } else if (color === 'red') {
+          img.style.filter = 'hue-rotate(320deg) saturate(1.5)';
+        } else if (color === 'white') {
+          img.style.filter = 'brightness(2.4) saturate(0)';
+        } else if (color === 'gold') {
+          img.style.filter = 'hue-rotate(35deg) saturate(1.8) brightness(1.15)';
+        }
+
+        img.style.opacity = 1;
+      }, 150);
+
+      document.querySelectorAll('#controls button').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
     }
-    animate();
   </script>
 </body>
 </html>
