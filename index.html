@@ -67,7 +67,7 @@
   </header>
 
   <div id="canvas-container">
-    <div class="loading" id="loading">Chargement de la DualShock 4...<br><small>Ça peut prendre 5-10 secondes</small></div>
+    <div class="loading" id="loading">Chargement...</div>
   </div>
 
   <div class="controls" id="controls" style="display:none;">
@@ -77,6 +77,7 @@
     <button onclick="changeColor(0x1a5c1a)">Vert</button>
     <button onclick="changeColor(0xf0f0f0)">Blanc</button>
     <button onclick="changeColor(0x5a1a8b)">Violet</button>
+    <button onclick="changeColor(0x1a5c5c)">Turquoise</button>
   </div>
 
   <script type="importmap">
@@ -100,8 +101,9 @@
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x111111);
 
-    const camera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 100);
-    camera.position.set(0, 0.4, 2.2);
+    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
+    // Caméra plus loin
+    camera.position.set(0, 0.5, 3.2);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(container.clientWidth, container.clientHeight);
@@ -109,61 +111,60 @@
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     container.appendChild(renderer.domElement);
 
-    // Lumières plus fortes
-    scene.add(new THREE.AmbientLight(0xffffff, 1.0));
+    scene.add(new THREE.AmbientLight(0xffffff, 0.9));
     
-    const dirLight = new THREE.DirectionalLight(0xffffff, 1.8);
+    const dirLight = new THREE.DirectionalLight(0xffffff, 1.6);
     dirLight.position.set(5, 8, 6);
     scene.add(dirLight);
 
-    const dirLight2 = new THREE.DirectionalLight(0xffffff, 0.8);
+    const dirLight2 = new THREE.DirectionalLight(0xffffff, 0.6);
     dirLight2.position.set(-5, 3, -4);
     scene.add(dirLight2);
 
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.target.set(0, 0, 0);
+    controls.minDistance = 1.5;
+    controls.maxDistance = 6;
 
     let bodyMaterials = [];
 
     const loader = new GLTFLoader();
 
-    // Chemin exact
-    const modelPath = './dualshock_4_playstation_controller%202.glb';
-
     loader.load(
-      modelPath,
+      './dualshock_4_playstation_controller%202.glb',
       (gltf) => {
-        console.log('Modèle chargé !');
         const model = gltf.scene;
 
-        // Centrer et agrandir
+        // Centrer parfaitement
         const box = new THREE.Box3().setFromObject(model);
         const center = box.getCenter(new THREE.Vector3());
         const size = box.getSize(new THREE.Vector3());
 
-        model.position.sub(center); // centrer
+        model.position.sub(center);
         const maxDim = Math.max(size.x, size.y, size.z);
-        const scale = 1.8 / maxDim;
+        const scale = 2.2 / maxDim;
         model.scale.setScalar(scale);
-
         model.rotation.y = Math.PI;
 
+        // On récupère uniquement les matériaux qui semblent être la coque
         model.traverse((child) => {
-          if (child.isMesh) {
-            child.castShadow = true;
-            child.receiveShadow = true;
-            if (child.material) {
-              if (Array.isArray(child.material)) {
-                child.material.forEach(m => {
-                  m = m.clone();
-                  bodyMaterials.push(m);
-                });
-              } else {
-                child.material = child.material.clone();
-                bodyMaterials.push(child.material);
+          if (child.isMesh && child.material) {
+            const mats = Array.isArray(child.material) ? child.material : [child.material];
+            mats.forEach(mat => {
+              // On clone et on garde ceux qui ont une couleur (pas les textures complexes de boutons)
+              const cloned = mat.clone();
+              if (cloned.color) {
+                bodyMaterials.push(cloned);
+                // On remplace le matériau sur le mesh
+                if (Array.isArray(child.material)) {
+                  const idx = child.material.indexOf(mat);
+                  if (idx !== -1) child.material[idx] = cloned;
+                } else {
+                  child.material = cloned;
+                }
               }
-            }
+            });
           }
         });
 
@@ -172,18 +173,21 @@
         controlsDiv.style.display = 'flex';
       },
       (xhr) => {
-        const percent = Math.round((xhr.loaded / xhr.total) * 100);
-        loading.innerHTML = `Chargement... ${percent}%`;
+        if (xhr.total) {
+          loading.textContent = `Chargement... ${Math.round(xhr.loaded / xhr.total * 100)}%`;
+        }
       },
       (error) => {
-        console.error('Erreur:', error);
-        loading.innerHTML = 'Erreur de chargement.<br>Ouvre la console (F12) et dis-moi ce qu’il y a.';
+        console.error(error);
+        loading.textContent = 'Erreur de chargement';
       }
     );
 
     window.changeColor = function(hex) {
       bodyMaterials.forEach(mat => {
-        if (mat.color) mat.color.setHex(hex);
+        if (mat.color) {
+          mat.color.setHex(hex);
+        }
       });
       document.querySelectorAll('#controls button').forEach(btn => btn.classList.remove('active'));
       event.target.classList.add('active');
