@@ -4,18 +4,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>G1stControllers — Custom Controllers</title>
+<title>G1stControllers — Manettes Custom</title>
+
+<meta name="description"
+content="G1stControllers — Créations et modifications de manettes custom.">
 
 <style>
+
 :root {
-    --bg: #07080c;
-    --card: #10131a;
-    --text: #ffffff;
-    --muted: #8e96a7;
-    --blue: #38a9ff;
-    --purple: #815cff;
-    --pink: #ff3cac;
-    --border: rgba(255,255,255,.09);
+    --black: #050608;
+    --black-2: #090b0f;
+    --panel: #101319;
+    --panel-light: #171a21;
+
+    --white: #f5f7fa;
+    --grey: #9ca3af;
+    --grey-dark: #626977;
+
+    --blue: #168cff;
+    --blue-light: #55b5ff;
+
+    --border: rgba(255,255,255,0.09);
 }
 
 * {
@@ -29,31 +38,54 @@ html {
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
     background:
-        radial-gradient(circle at 80% 10%, rgba(56,169,255,.12), transparent 30%),
-        radial-gradient(circle at 20% 40%, rgba(129,92,255,.10), transparent 30%),
-        var(--bg);
-    color: var(--text);
+        radial-gradient(
+            circle at 80% 0%,
+            rgba(22,140,255,0.10),
+            transparent 32%
+        ),
+        var(--black);
+
+    color: var(--white);
+
+    font-family:
+        Inter,
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    overflow-x: hidden;
 }
 
-/* =========================
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.container {
+    width: min(1200px, 92%);
+    margin: auto;
+}
+
+
+/* =========================================================
    HEADER
-========================= */
+========================================================= */
 
 header {
     position: sticky;
     top: 0;
-    z-index: 100;
-    background: rgba(7,8,12,.85);
+    z-index: 1000;
+
+    background: rgba(5,6,8,0.88);
+
     backdrop-filter: blur(18px);
+
     border-bottom: 1px solid var(--border);
 }
 
-.navbar {
-    width: min(1180px, 92%);
-    height: 78px;
-    margin: auto;
+.header-inner {
+    height: 76px;
 
     display: flex;
     align-items: center;
@@ -61,267 +93,296 @@ header {
 }
 
 .logo {
-    font-size: 25px;
-    font-weight: 900;
-    letter-spacing: -1px;
+    font-size: 23px;
+    font-weight: 950;
+    letter-spacing: -1.2px;
+}
+
+.logo strong {
+    color: white;
 }
 
 .logo span {
-    background: linear-gradient(
-        90deg,
-        var(--blue),
-        var(--purple),
-        var(--pink)
-    );
-
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: var(--blue);
 }
 
-nav {
+.navigation {
     display: flex;
-    gap: 28px;
+    align-items: center;
+    gap: 32px;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    color: #b8bec9;
 }
 
-nav a {
-    color: #c8ccd6;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 700;
-    transition: .2s;
+.navigation a {
+    transition: 0.2s;
 }
 
-nav a:hover {
+.navigation a:hover {
     color: white;
 }
 
-.header-button {
+.header-contact {
     padding: 11px 17px;
-    border-radius: 10px;
 
-    color: white;
-    text-decoration: none;
+    border-radius: 8px;
 
-    border: 1px solid rgba(56,169,255,.5);
-    background: rgba(56,169,255,.08);
+    border: 1px solid rgba(22,140,255,0.45);
+
+    background: rgba(22,140,255,0.08);
+
+    font-size: 13px;
+    font-weight: 900;
 }
 
-/* =========================
-   GENERAL
-========================= */
 
-.container {
-    width: min(1180px, 92%);
-    margin: auto;
-}
-
-section {
-    padding: 100px 0;
-}
-
-/* =========================
+/* =========================================================
    HERO
-========================= */
+========================================================= */
 
 .hero {
-    min-height: 680px;
+    min-height: 720px;
 
     display: grid;
-    grid-template-columns: 1fr 1fr;
+
+    grid-template-columns:
+        0.85fr
+        1.15fr;
+
     align-items: center;
 
-    gap: 50px;
+    gap: 60px;
+
+    padding: 70px 0 90px;
 }
 
-.kicker {
-    color: var(--blue);
-    font-size: 12px;
+.hero-small {
+    font-size: 11px;
     font-weight: 900;
-    letter-spacing: 3px;
 
-    margin-bottom: 18px;
+    letter-spacing: 4px;
+
+    color: var(--blue);
+
+    margin-bottom: 20px;
 }
 
 .hero h1 {
-    font-size: clamp(55px, 7vw, 95px);
-    line-height: .9;
-    letter-spacing: -5px;
+    font-size: clamp(54px, 7vw, 92px);
+
+    line-height: 0.88;
+
+    letter-spacing: -6px;
+
+    font-weight: 950;
 }
 
 .hero h1 span {
-    background: linear-gradient(
-        90deg,
-        white,
-        var(--blue),
-        var(--purple)
-    );
-
-    -webkit-background-clip: text;
-    background-clip: text;
-
-    color: transparent;
+    color: var(--blue);
 }
 
-.hero p {
-    max-width: 560px;
+.hero-description {
+    max-width: 510px;
 
-    margin: 28px 0;
+    color: var(--grey);
 
-    color: var(--muted);
-    font-size: 18px;
-    line-height: 1.6;
+    font-size: 17px;
+
+    line-height: 1.7;
+
+    margin-top: 27px;
 }
 
-.hero-buttons {
+.hero-actions {
     display: flex;
-    gap: 12px;
+
     flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin-top: 32px;
 }
 
 .button {
-    display: inline-block;
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
 
     padding: 14px 21px;
 
-    border-radius: 11px;
+    border-radius: 9px;
+
+    font-size: 13px;
 
     font-weight: 900;
-    text-decoration: none;
 }
 
-.button-primary {
-    background: linear-gradient(
-        100deg,
-        var(--blue),
-        var(--purple)
-    );
+.button-blue {
+    background: var(--blue);
 
     color: white;
+
+    box-shadow:
+        0 10px 30px rgba(22,140,255,0.22);
 }
 
-.button-secondary {
+.button-dark {
+    background: #11141a;
+
     border: 1px solid var(--border);
-    background: #11141b;
-    color: white;
 }
 
-/* =========================
-   CONTROLLER VISUAL
-========================= */
 
-.hero-controller {
+/* =========================================================
+   MANETTE VISUELLE
+========================================================= */
+
+.hero-product {
     position: relative;
 
-    width: 100%;
-    max-width: 540px;
+    min-height: 500px;
 
-    aspect-ratio: 1.55;
+    display: flex;
 
-    margin: auto;
-
-    filter: drop-shadow(
-        0 35px 50px rgba(0,0,0,.65)
-    );
+    align-items: center;
+    justify-content: center;
 }
 
-.controller-glow {
+.product-glow {
     position: absolute;
 
-    width: 420px;
-    height: 420px;
-
-    left: 50%;
-    top: 50%;
-
-    transform: translate(-50%,-50%);
+    width: 530px;
+    height: 530px;
 
     border-radius: 50%;
 
     background:
         radial-gradient(
             circle,
-            rgba(56,169,255,.30),
-            rgba(129,92,255,.13),
+            rgba(22,140,255,0.24),
+            rgba(22,140,255,0.06) 45%,
             transparent 70%
+        );
+}
+
+.controller {
+    position: relative;
+
+    width: min(650px,100%);
+
+    aspect-ratio: 1.75;
+
+    filter:
+        drop-shadow(
+            0 35px 45px rgba(0,0,0,0.75)
         );
 }
 
 .controller-body {
     position: absolute;
 
-    inset: 17% 7% 10%;
+    left: 9%;
+    right: 9%;
+    top: 17%;
+    bottom: 13%;
 
     background:
         linear-gradient(
             145deg,
-            #292e39,
-            #0d1016
+            #272c35,
+            #101319 65%,
+            #080a0d
         );
 
-    border: 1px solid #414754;
+    border:
+        1px solid #3c434e;
 
     border-radius:
-        28% 28% 35% 35% /
-        35% 35% 28% 28%;
-
-    transform: rotate(-2deg);
+        31% 31% 25% 25% /
+        39% 39% 30% 30%;
 
     box-shadow:
-        inset 0 0 30px rgba(255,255,255,.035);
+        inset 0 8px 20px rgba(255,255,255,0.025),
+        inset 0 -20px 40px rgba(0,0,0,0.35);
 }
 
 .controller-grip {
     position: absolute;
 
-    width: 24%;
-    height: 43%;
+    bottom: 0;
 
-    bottom: 3%;
+    width: 25%;
+    height: 48%;
 
     background:
         linear-gradient(
             145deg,
-            #1b2029,
-            #080a0e
+            #20252d,
+            #080a0d
         );
 
-    border: 1px solid #363c48;
+    border: 1px solid #343b46;
 
-    border-radius: 45%;
+    border-radius: 50%;
 }
 
 .controller-grip.left {
-    left: 12%;
+    left: 10%;
     transform: rotate(12deg);
 }
 
 .controller-grip.right {
-    right: 12%;
+    right: 10%;
     transform: rotate(-12deg);
 }
 
 .touchpad {
     position: absolute;
 
-    left: 37%;
+    width: 25%;
+    height: 26%;
+
+    left: 37.5%;
     top: 25%;
 
-    width: 26%;
-    height: 28%;
+    border-radius: 14px;
 
-    background: #090b10;
+    background:
+        linear-gradient(
+            145deg,
+            #15191f,
+            #080a0d
+        );
 
-    border:
-        1px solid #383e4b;
+    border: 1px solid #363d47;
+}
 
-    border-radius: 18px;
+.light {
+    position: absolute;
+
+    width: 16%;
+    height: 3%;
+
+    left: 42%;
+
+    top: 21%;
+
+    border-radius: 20px;
+
+    background: var(--blue);
+
+    box-shadow:
+        0 0 22px rgba(22,140,255,0.7);
 }
 
 .stick {
     position: absolute;
 
-    width: 11%;
+    width: 12%;
     aspect-ratio: 1;
 
     border-radius: 50%;
@@ -329,32 +390,31 @@ section {
     background:
         radial-gradient(
             circle at 35% 30%,
-            #626a79,
-            #090b0f 68%
+            #555d68,
+            #0b0d11 68%
         );
 
-    border: 2px solid #202530;
+    border:
+        2px solid #1d222a;
 }
 
 .stick.left {
-    left: 29%;
-    top: 39%;
+    left: 28%;
+    top: 42%;
 }
 
 .stick.right {
-    right: 29%;
-    top: 39%;
+    right: 28%;
+    top: 42%;
 }
-
-/* D-PAD */
 
 .dpad {
     position: absolute;
 
-    left: 18%;
+    left: 17%;
     top: 39%;
 
-    width: 15%;
+    width: 14%;
     aspect-ratio: 1;
 }
 
@@ -364,9 +424,10 @@ section {
 
     position: absolute;
 
-    background: #090b10;
+    background: #090b0e;
 
-    border: 1px solid #343a47;
+    border:
+        1px solid #3b414b;
 
     border-radius: 5px;
 }
@@ -374,130 +435,270 @@ section {
 .dpad::before {
     width: 100%;
     height: 34%;
-
     top: 33%;
 }
 
 .dpad::after {
     height: 100%;
     width: 34%;
-
     left: 33%;
 }
 
-/* BUTTONS */
-
-.abxy {
+.buttons {
     position: absolute;
 
-    right: 18%;
-    top: 36%;
+    right: 17%;
+    top: 37%;
 
-    width: 18%;
+    width: 17%;
     aspect-ratio: 1;
 }
 
-.abxy i {
+.buttons i {
     position: absolute;
 
-    width: 28%;
+    width: 27%;
     aspect-ratio: 1;
 
     border-radius: 50%;
 
-    background: #11151d;
+    background: #11151b;
 
-    border: 1px solid #3b414e;
+    border:
+        1px solid #3e4550;
 }
 
-.abxy i:nth-child(1) {
+.buttons i:nth-child(1) {
     left: 36%;
     top: 0;
 }
 
-.abxy i:nth-child(2) {
+.buttons i:nth-child(2) {
     right: 0;
     top: 36%;
 }
 
-.abxy i:nth-child(3) {
+.buttons i:nth-child(3) {
     left: 36%;
     bottom: 0;
 }
 
-.abxy i:nth-child(4) {
+.buttons i:nth-child(4) {
     left: 0;
     top: 36%;
 }
 
-/* =========================
-   FEATURES
-========================= */
 
-.features-section {
+/* =========================================================
+   BANDEAU
+========================================================= */
+
+.intro-strip {
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
+
+    background: rgba(255,255,255,0.015);
 }
 
-.features {
+.intro-grid {
     display: grid;
-    grid-template-columns: repeat(4,1fr);
+
+    grid-template-columns:
+        repeat(4,1fr);
 }
 
-.feature {
-    padding: 25px;
+.intro-item {
+    padding: 24px;
 
-    border-right: 1px solid var(--border);
+    border-right:
+        1px solid var(--border);
 }
 
-.feature:last-child {
+.intro-item:last-child {
     border-right: none;
 }
 
-.feature strong {
+.intro-item strong {
     display: block;
 
-    font-size: 20px;
+    font-size: 17px;
 
-    margin-bottom: 5px;
+    margin-bottom: 4px;
 }
 
-.feature small {
-    color: var(--muted);
+.intro-item span {
+    color: var(--grey-dark);
+
+    font-size: 12px;
 }
 
-/* =========================
-   SECTION TITLES
-========================= */
 
-.section-title {
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+section {
+    padding: 110px 0;
+}
+
+.section-label {
+    color: var(--blue);
+
+    font-size: 11px;
+
+    font-weight: 900;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 14px;
+}
+
+.section-heading {
     display: flex;
 
     align-items: flex-end;
+
     justify-content: space-between;
 
-    gap: 30px;
+    gap: 40px;
 
-    margin-bottom: 40px;
+    margin-bottom: 45px;
 }
 
-.section-title h2 {
-    font-size: clamp(38px,5vw,60px);
+.section-heading h2 {
+    font-size: clamp(38px,5vw,63px);
 
-    letter-spacing: -3px;
+    line-height: .95;
+
+    letter-spacing: -4px;
 }
 
-.section-title p {
-    max-width: 500px;
+.section-heading p {
+    max-width: 450px;
 
-    color: var(--muted);
+    color: var(--grey);
+
+    font-size: 14px;
+
+    line-height: 1.7;
 }
 
-/* =========================
-   CREATIONS
-========================= */
 
-.creations {
+/* =========================================================
+   CRÉATIONS
+========================================================= */
+
+.showroom {
+    display: grid;
+
+    grid-template-columns:
+        1.25fr
+        .875fr
+        .875fr;
+
+    gap: 18px;
+}
+
+.showcase-card {
+    position: relative;
+
+    min-height: 430px;
+
+    overflow: hidden;
+
+    border-radius: 15px;
+
+    border: 1px solid var(--border);
+
+    background: var(--panel);
+}
+
+.showcase-card.small {
+    min-height: 300px;
+}
+
+.showcase-photo {
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            rgba(22,140,255,.12),
+            transparent 50%
+        ),
+        linear-gradient(
+            145deg,
+            #191d25,
+            #090b0e
+        );
+}
+
+.showcase-photo::before {
+    content: "TA PHOTO";
+
+    font-size: 11px;
+
+    font-weight: 900;
+
+    letter-spacing: 3px;
+
+    color: #596170;
+}
+
+.showcase-overlay {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    padding: 25px;
+
+    background:
+        linear-gradient(
+            transparent,
+            rgba(0,0,0,.9)
+        );
+}
+
+.showcase-overlay small {
+    color: var(--blue);
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+}
+
+.showcase-overlay h3 {
+    font-size: 24px;
+
+    margin-top: 5px;
+}
+
+.showcase-overlay p {
+    color: #b5bbc6;
+
+    font-size: 13px;
+
+    margin-top: 3px;
+}
+
+
+/* =========================================================
+   MODIFICATIONS
+========================================================= */
+
+.modifications {
     display: grid;
 
     grid-template-columns:
@@ -506,50 +707,35 @@ section {
     gap: 18px;
 }
 
-.creation-card {
-    background: var(--card);
+.modification {
+    padding: 30px;
 
-    border: 1px solid var(--border);
+    min-height: 190px;
 
-    border-radius: 18px;
+    background:
+        linear-gradient(
+            145deg,
+            #141820,
+            #0b0d11
+        );
 
-    overflow: hidden;
+    border:
+        1px solid var(--border);
+
+    border-radius: 15px;
 
     transition: .25s;
 }
 
-.creation-card:hover {
-    transform: translateY(-5px);
+.modification:hover {
+    transform: translateY(-4px);
 
     border-color:
-        rgba(56,169,255,.35);
+        rgba(22,140,255,.35);
 }
 
-.creation-image {
-    aspect-ratio: 4 / 3;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    background:
-        radial-gradient(
-            circle at 50% 35%,
-            rgba(56,169,255,.12),
-            transparent 55%
-        ),
-        linear-gradient(
-            135deg,
-            #181c25,
-            #090b10
-        );
-}
-
-.creation-image::after {
-    content: "PHOTO DE TA MANETTE";
-
-    color: #606878;
+.modification-number {
+    color: var(--blue);
 
     font-size: 11px;
 
@@ -558,265 +744,348 @@ section {
     letter-spacing: 2px;
 }
 
-.creation-info {
-    padding: 20px;
-}
-
-.creation-info h3 {
+.modification h3 {
     font-size: 21px;
+
+    margin-top: 25px;
 }
 
-.creation-info p {
-    color: var(--muted);
+.modification p {
+    color: var(--grey);
 
-    font-size: 14px;
+    font-size: 13px;
 
-    margin-top: 5px;
-}
-
-/* =========================
-   OPTIONS
-========================= */
-
-.options {
-    display: grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap: 15px;
-}
-
-.option {
-    padding: 27px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #141821,
-            #0a0c11
-        );
-
-    border: 1px solid var(--border);
-
-    border-radius: 17px;
-}
-
-.option-icon {
-    font-size: 28px;
-
-    margin-bottom: 17px;
-}
-
-.option h3 {
-    font-size: 18px;
-}
-
-.option p {
-    color: var(--muted);
-
-    font-size: 14px;
+    line-height: 1.6;
 
     margin-top: 8px;
 }
 
-/* =========================
-   ABOUT
-========================= */
 
-.about {
+/* =========================================================
+   SECTION MANETTES CUSTOM
+========================================================= */
+
+.custom-section {
+    background:
+        linear-gradient(
+            180deg,
+            transparent,
+            rgba(22,140,255,.035),
+            transparent
+        );
+}
+
+.custom-grid {
     display: grid;
 
     grid-template-columns:
-        1fr 1fr;
+        1fr
+        1fr;
 
-    gap: 55px;
+    gap: 70px;
 
     align-items: center;
 }
 
-.about h2 {
-    font-size: clamp(42px,5vw,62px);
+.custom-image {
+    min-height: 450px;
+
+    border-radius: 20px;
+
+    border: 1px solid var(--border);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(22,140,255,.15),
+            transparent 55%
+        ),
+        #0c0f14;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+.custom-image::before {
+    content: "PHOTO DE TA MANETTE";
+
+    color: #596170;
+
+    font-size: 11px;
+
+    font-weight: 900;
+
+    letter-spacing: 3px;
+}
+
+.custom-copy h2 {
+    font-size: clamp(40px,5vw,62px);
 
     line-height: .95;
 
     letter-spacing: -4px;
 }
 
-.about-text {
-    color: var(--muted);
+.custom-copy p {
+    color: var(--grey);
 
-    margin-top: 20px;
+    line-height: 1.8;
 
-    max-width: 560px;
+    font-size: 15px;
 
-    line-height: 1.7;
+    margin-top: 22px;
 }
 
-.about-box {
-    padding: 42px;
 
-    border-radius: 22px;
+/* =========================================================
+   À PROPOS
+========================================================= */
 
-    border: 1px solid var(--border);
+.about-grid {
+    display: grid;
 
-    background:
-        linear-gradient(
-            145deg,
-            #12151c,
-            #090b10
-        );
+    grid-template-columns:
+        .8fr
+        1.2fr;
+
+    gap: 70px;
+
+    align-items: center;
 }
 
-/* =========================
+.about-title {
+    font-size: clamp(43px,6vw,75px);
+
+    line-height: .9;
+
+    letter-spacing: -5px;
+}
+
+.about-copy {
+    color: var(--grey);
+
+    font-size: 15px;
+
+    line-height: 1.8;
+}
+
+.about-copy + .about-copy {
+    margin-top: 18px;
+}
+
+
+/* =========================================================
    CONTACT
-========================= */
+========================================================= */
 
-.contact-box {
-    padding: 55px;
+.contact {
+    padding-bottom: 120px;
+}
 
-    border-radius: 22px;
+.contact-card {
+    padding: 65px;
+
+    border-radius: 20px;
 
     border: 1px solid var(--border);
 
     background:
-        linear-gradient(
-            110deg,
-            rgba(56,169,255,.08),
-            rgba(129,92,255,.08),
-            rgba(255,60,172,.06)
-        );
+        radial-gradient(
+            circle at 85% 50%,
+            rgba(22,140,255,.16),
+            transparent 35%
+        ),
+        #0e1116;
 }
 
-.contact-box h2 {
-    font-size: clamp(40px,5vw,62px);
+.contact-card h2 {
+    max-width: 750px;
 
-    letter-spacing: -3px;
+    font-size: clamp(42px,6vw,72px);
+
+    line-height: .9;
+
+    letter-spacing: -5px;
 }
 
-.contact-box p {
-    color: var(--muted);
+.contact-card p {
+    max-width: 550px;
 
-    margin: 15px 0 25px;
+    color: var(--grey);
+
+    margin: 20px 0 30px;
 }
 
-/* =========================
+
+/* =========================================================
    FOOTER
-========================= */
+========================================================= */
 
 footer {
-    padding: 35px 0;
-
     border-top: 1px solid var(--border);
 
-    color: #727989;
+    padding: 35px 0;
 
-    font-size: 13px;
+    color: #666e7c;
+
+    font-size: 12px;
 }
 
-.footer {
+.footer-inner {
     display: flex;
 
     justify-content: space-between;
+
+    gap: 20px;
 }
 
-/* =========================
+
+/* =========================================================
    MOBILE
-========================= */
+========================================================= */
 
-@media(max-width:850px) {
+@media(max-width:900px) {
 
-    nav {
+    .navigation {
         display: none;
     }
 
     .hero {
         grid-template-columns: 1fr;
 
-        padding: 65px 0;
+        padding-top: 60px;
     }
 
-    .hero-controller {
-        max-width: 500px;
+    .hero-product {
+        min-height: 390px;
     }
 
-    .features {
+    .intro-grid {
         grid-template-columns: 1fr 1fr;
     }
 
-    .feature {
+    .intro-item {
         border-bottom: 1px solid var(--border);
     }
 
-    .creations {
-        grid-template-columns: 1fr;
-    }
-
-    .options {
+    .showroom {
         grid-template-columns: 1fr 1fr;
     }
 
-    .about {
+    .showcase-card:first-child {
+        grid-column: span 2;
+    }
+
+    .modifications {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .custom-grid,
+    .about-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width:600px) {
+
+    .header-contact {
+        display: none;
     }
 
     section {
         padding: 75px 0;
     }
-}
 
-@media(max-width:520px) {
+    .hero h1 {
+        letter-spacing: -4px;
+    }
 
-    .features {
+    .hero-product {
+        min-height: 280px;
+    }
+
+    .product-glow {
+        width: 320px;
+        height: 320px;
+    }
+
+    .intro-grid,
+    .showroom,
+    .modifications {
         grid-template-columns: 1fr;
     }
 
-    .options {
-        grid-template-columns: 1fr;
+    .showcase-card:first-child {
+        grid-column: auto;
     }
 
-    .section-title {
+    .section-heading {
         display: block;
     }
 
-    .section-title p {
-        margin-top: 12px;
+    .section-heading p {
+        margin-top: 15px;
     }
 
-    .contact-box {
-        padding: 32px;
+    .contact-card {
+        padding: 35px 25px;
     }
 
-    .footer {
+    .footer-inner {
         display: block;
+    }
+
+    .footer-inner div + div {
+        margin-top: 8px;
     }
 }
+
 </style>
 </head>
 
+
 <body>
 
-<!-- =========================
+
+<!-- ======================================================
      HEADER
-========================= -->
+====================================================== -->
 
 <header>
 
-<div class="navbar">
+<div class="container header-inner">
 
 <a href="#accueil" class="logo">
-G1st<span>Controllers</span>
+<strong>G1st</strong><span>Controllers</span>
 </a>
 
-<nav>
-<a href="#accueil">Accueil</a>
-<a href="#creations">Mes créations</a>
-<a href="#options">Options</a>
-<a href="#apropos">À propos</a>
+<nav class="navigation">
+
+<a href="#accueil">
+Accueil
+</a>
+
+<a href="#creations">
+Créations
+</a>
+
+<a href="#modifications">
+Modifications
+</a>
+
+<a href="#apropos">
+À propos
+</a>
+
 </nav>
 
-<a href="#contact" class="header-button">
-Me contacter
+<a
+href="#contact"
+class="header-contact">
+CONTACT
 </a>
 
 </div>
@@ -824,41 +1093,48 @@ Me contacter
 </header>
 
 
-<!-- =========================
+
+<!-- ======================================================
      HERO
-========================= -->
+====================================================== -->
+
+<main>
 
 <section class="hero container" id="accueil">
 
+
 <div>
 
-<div class="kicker">
-CUSTOM CONTROLLERS
+<div class="hero-small">
+MANETTES · CUSTOM
 </div>
 
+
 <h1>
-PLUS QU'UNE<br>
+TA<br>
 <span>MANETTE.</span>
 </h1>
 
-<p>
+
+<p class="hero-description">
 Des manettes custom pensées pour le style,
 le feeling et la performance.
 Découvre les créations G1stControllers.
 </p>
 
-<div class="hero-buttons">
+
+<div class="hero-actions">
 
 <a
 href="#creations"
-class="button button-primary">
-Voir mes créations
+class="button button-blue">
+VOIR LES CRÉATIONS
 </a>
 
 <a
-href="#options"
-class="button button-secondary">
-Découvrir les options
+href="#modifications"
+class="button button-dark">
+LES MODIFICATIONS
 </a>
 
 </div>
@@ -866,9 +1142,14 @@ Découvrir les options
 </div>
 
 
-<div class="hero-controller">
 
-<div class="controller-glow"></div>
+<!-- VISUEL -->
+
+<div class="hero-product">
+
+<div class="product-glow"></div>
+
+<div class="controller">
 
 <div class="controller-body"></div>
 
@@ -878,18 +1159,22 @@ Découvrir les options
 
 <div class="touchpad"></div>
 
+<div class="light"></div>
+
 <div class="stick left"></div>
 
 <div class="stick right"></div>
 
 <div class="dpad"></div>
 
-<div class="abxy">
+<div class="buttons">
 
 <i></i>
 <i></i>
 <i></i>
 <i></i>
+
+</div>
 
 </div>
 
@@ -898,89 +1183,114 @@ Découvrir les options
 </section>
 
 
-<!-- =========================
-     FEATURES
-========================= -->
 
-<section class="features-section">
+<!-- ======================================================
+     BANDEAU
+====================================================== -->
 
-<div class="container features">
+<div class="intro-strip">
 
-<div class="feature">
+<div class="container intro-grid">
+
+<div class="intro-item">
+
+<strong>MANETTES CUSTOM</strong>
+
+<span>
+Créations personnalisées
+</span>
+
+</div>
+
+
+<div class="intro-item">
+
 <strong>8K</strong>
-<small>Carte haute fréquence</small>
+
+<span>
+Modification électronique
+</span>
+
 </div>
 
-<div class="feature">
+
+<div class="intro-item">
+
 <strong>BOUTONS +</strong>
-<small>Commandes supplémentaires</small>
+
+<span>
+Commandes supplémentaires
+</span>
+
 </div>
 
-<div class="feature">
+
+<div class="intro-item">
+
 <strong>CLICK</strong>
-<small>Feeling souris</small>
-</div>
 
-<div class="feature">
-<strong>CUSTOM</strong>
-<small>Créations personnalisées</small>
-</div>
+<span>
+Feeling souris
+</span>
 
 </div>
 
-</section>
+</div>
+
+</div>
 
 
-<!-- =========================
-     CREATIONS
-========================= -->
+
+<!-- ======================================================
+     CRÉATIONS
+====================================================== -->
 
 <section class="container" id="creations">
 
-<div class="section-title">
+
+<div class="section-heading">
+
+<div>
+
+<div class="section-label">
+SHOWROOM
+</div>
 
 <h2>
-MES CRÉATIONS
+MES<br>
+CRÉATIONS
 </h2>
 
+</div>
+
+
 <p>
-Une sélection de mes manettes custom.
-Les emplacements photos sont prêts à recevoir
-tes vraies photos.
+Découvre les manettes custom réalisées par
+G1stControllers. Chaque création peut avoir
+son propre style et ses propres modifications.
 </p>
 
 </div>
 
 
-<div class="creations">
 
-<article class="creation-card">
-
-<div class="creation-image"></div>
-
-<div class="creation-info">
-
-<h3>Création 01</h3>
-
-<p>
-Manette custom
-</p>
-
-</div>
-
-</article>
+<div class="showroom">
 
 
-<article class="creation-card">
+<article class="showcase-card">
 
-<div class="creation-image"></div>
+<div class="showcase-photo"></div>
 
-<div class="creation-info">
+<div class="showcase-overlay">
 
-<h3>Création 02</h3>
+<small>G1STCONTROLLERS</small>
+
+<h3>
+TA CRÉATION
+</h3>
 
 <p>
-Manette custom
+Ajoute ici la photo de ta manette.
 </p>
 
 </div>
@@ -988,17 +1298,36 @@ Manette custom
 </article>
 
 
-<article class="creation-card">
 
-<div class="creation-image"></div>
+<article class="showcase-card small">
 
-<div class="creation-info">
+<div class="showcase-photo"></div>
 
-<h3>Création 03</h3>
+<div class="showcase-overlay">
 
-<p>
-Manette custom
-</p>
+<small>MANETTE CUSTOM</small>
+
+<h3>
+CRÉATION 02
+</h3>
+
+</div>
+
+</article>
+
+
+
+<article class="showcase-card small">
+
+<div class="showcase-photo"></div>
+
+<div class="showcase-overlay">
+
+<small>MANETTE CUSTOM</small>
+
+<h3>
+CRÉATION 03
+</h3>
 
 </div>
 
@@ -1009,32 +1338,49 @@ Manette custom
 </section>
 
 
-<!-- =========================
-     OPTIONS
-========================= -->
 
-<section class="container" id="options">
+<!-- ======================================================
+     MODIFICATIONS
+====================================================== -->
 
-<div class="section-title">
+<section
+class="container"
+id="modifications">
+
+
+<div class="section-heading">
+
+<div>
+
+<div class="section-label">
+CUSTOM
+</div>
 
 <h2>
-OPTIONS
+TES<br>
+MODIFS.
 </h2>
 
+</div>
+
+
 <p>
-Les principales modifications proposées
-peuvent être présentées ici.
+Les différentes modifications qui permettent
+de transformer une manette classique en création
+G1stControllers.
 </p>
 
 </div>
 
 
-<div class="options">
 
-<div class="option">
+<div class="modifications">
 
-<div class="option-icon">
-⚡
+
+<div class="modification">
+
+<div class="modification-number">
+01 / ÉLECTRONIQUE
 </div>
 
 <h3>
@@ -1042,16 +1388,18 @@ Carte 8K
 </h3>
 
 <p>
-Modification électronique haute fréquence.
+Modification électronique pour une configuration
+haute fréquence.
 </p>
 
 </div>
 
 
-<div class="option">
 
-<div class="option-icon">
-＋
+<div class="modification">
+
+<div class="modification-number">
+02 / COMMANDES
 </div>
 
 <h3>
@@ -1066,10 +1414,11 @@ pour personnaliser la prise en main.
 </div>
 
 
-<div class="option">
 
-<div class="option-icon">
-◉
+<div class="modification">
+
+<div class="modification-number">
+03 / SWITCH
 </div>
 
 <h3>
@@ -1077,24 +1426,65 @@ Click souris
 </h3>
 
 <p>
-Un feeling de clic plus direct sur certaines commandes.
+Modification avec des switches offrant
+un clic plus direct.
 </p>
 
 </div>
 
 
-<div class="option">
 
-<div class="option-icon">
-✦
+<div class="modification">
+
+<div class="modification-number">
+04 / DESIGN
 </div>
 
 <h3>
-Custom
+Coque custom
 </h3>
 
 <p>
-Coques, boutons, joysticks et autres éléments personnalisés.
+Personnalisation de l'apparence
+de la manette.
+</p>
+
+</div>
+
+
+
+<div class="modification">
+
+<div class="modification-number">
+05 / JOYSTICKS
+</div>
+
+<h3>
+Joystick caps
+</h3>
+
+<p>
+Différents styles de joysticks pour modifier
+le look et le feeling.
+</p>
+
+</div>
+
+
+
+<div class="modification">
+
+<div class="modification-number">
+06 / FINITION
+</div>
+
+<h3>
+Boutons custom
+</h3>
+
+<p>
+Personnalisation des boutons pour donner
+à chaque création son propre style.
 </p>
 
 </div>
@@ -1104,45 +1494,42 @@ Coques, boutons, joysticks et autres éléments personnalisés.
 </section>
 
 
-<!-- =========================
-     ABOUT
-========================= -->
 
-<section class="container" id="apropos">
+<!-- ======================================================
+     MANETTES CUSTOM
+====================================================== -->
 
-<div class="about">
+<section class="custom-section">
 
-<div>
 
-<div class="kicker">
+<div class="container custom-grid">
+
+
+<div class="custom-image">
+</div>
+
+
+<div class="custom-copy">
+
+<div class="section-label">
 G1STCONTROLLERS
 </div>
 
 <h2>
-UNE MANETTE<br>
-À TON IMAGE.
+UNE MANETTE.<br>
+TON STYLE.<br>
+TES MODIFS.
 </h2>
 
-<p class="about-text">
-G1stControllers est dédié aux créations de manettes
-custom : modifications, esthétique et personnalisation
-pour créer une manette qui ne ressemble pas aux autres.
+<p>
+G1stControllers transforme des manettes classiques
+en créations personnalisées grâce aux différentes
+modifications disponibles.
 </p>
 
-</div>
-
-
-<div class="about-box">
-
-<h2>
-CRÉÉE.<br>
-MODIFIÉE.<br>
-PERSONNALISÉE.
-</h2>
-
-<p class="about-text">
-Le site pourra ensuite évoluer avec des fiches détaillées
-pour chaque création et, plus tard, un configurateur.
+<p>
+Chaque création peut être présentée avec ses photos,
+ses modifications et ses caractéristiques.
 </p>
 
 </div>
@@ -1152,57 +1539,116 @@ pour chaque création et, plus tard, un configurateur.
 </section>
 
 
-<!-- =========================
+
+<!-- ======================================================
+     À PROPOS
+====================================================== -->
+
+<section class="container" id="apropos">
+
+
+<div class="about-grid">
+
+
+<div>
+
+<div class="section-label">
+G1STCONTROLLERS
+</div>
+
+<h2 class="about-title">
+MANETTES<br>
+CUSTOM.
+</h2>
+
+</div>
+
+
+<div>
+
+<p class="about-copy">
+G1stControllers est dédié à la création
+de manettes custom.
+</p>
+
+<p class="about-copy">
+Chaque modification est pensée pour changer
+le style, les commandes ou le feeling de la manette.
+</p>
+
+<p class="about-copy">
+Le site pourra évoluer par la suite avec des fiches
+détaillées pour chaque création et éventuellement
+un configurateur.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- ======================================================
      CONTACT
-========================= -->
+====================================================== -->
 
-<section class="container" id="contact">
+<section
+class="container contact"
+id="contact">
 
-<div class="contact-box">
 
-<div class="kicker">
-CONTACT
+<div class="contact-card">
+
+<div class="section-label">
+G1STCONTROLLERS
 </div>
 
 <h2>
-UNE CRÉATION EN TÊTE ?
+TU VEUX TA<br>
+MANETTE CUSTOM ?
 </h2>
 
 <p>
-Contacte-moi pour discuter d'une manette custom
-ou d'une modification.
+Présente ton idée et les modifications
+que tu aimerais apporter à ta manette.
 </p>
 
 <a
 href="#"
-class="button button-primary">
-Me contacter
+class="button button-blue">
+ME CONTACTER
 </a>
 
 </div>
 
 </section>
 
+</main>
 
-<!-- =========================
+
+
+<!-- ======================================================
      FOOTER
-========================= -->
+====================================================== -->
 
 <footer>
 
-<div class="container footer">
+<div class="container footer-inner">
 
 <div>
 © G1stControllers
 </div>
 
 <div>
-Custom Controllers · Créations personnalisées
+Manettes Custom · Créations personnalisées
 </div>
 
 </div>
 
 </footer>
+
 
 </body>
 </html>
