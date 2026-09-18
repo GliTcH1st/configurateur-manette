@@ -1,153 +1,1208 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Configurateur Manette PS4</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    body {
-      font-family: system-ui, -apple-system, sans-serif;
-      background: #0a0a0a;
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+<title>G1stControllers — Custom Controllers</title>
+
+<style>
+:root {
+    --bg: #07080c;
+    --card: #10131a;
+    --text: #ffffff;
+    --muted: #8e96a7;
+    --blue: #38a9ff;
+    --purple: #815cff;
+    --pink: #ff3cac;
+    --border: rgba(255,255,255,.09);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at 80% 10%, rgba(56,169,255,.12), transparent 30%),
+        radial-gradient(circle at 20% 40%, rgba(129,92,255,.10), transparent 30%),
+        var(--bg);
+    color: var(--text);
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(7,8,12,.85);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border);
+}
+
+.navbar {
+    width: min(1180px, 92%);
+    height: 78px;
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.logo span {
+    background: linear-gradient(
+        90deg,
+        var(--blue),
+        var(--purple),
+        var(--pink)
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+nav {
+    display: flex;
+    gap: 28px;
+}
+
+nav a {
+    color: #c8ccd6;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+    transition: .2s;
+}
+
+nav a:hover {
+    color: white;
+}
+
+.header-button {
+    padding: 11px 17px;
+    border-radius: 10px;
+
+    color: white;
+    text-decoration: none;
+
+    border: 1px solid rgba(56,169,255,.5);
+    background: rgba(56,169,255,.08);
+}
+
+/* =========================
+   GENERAL
+========================= */
+
+.container {
+    width: min(1180px, 92%);
+    margin: auto;
+}
+
+section {
+    padding: 100px 0;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    min-height: 680px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+
+    gap: 50px;
+}
+
+.kicker {
+    color: var(--blue);
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 3px;
+
+    margin-bottom: 18px;
+}
+
+.hero h1 {
+    font-size: clamp(55px, 7vw, 95px);
+    line-height: .9;
+    letter-spacing: -5px;
+}
+
+.hero h1 span {
+    background: linear-gradient(
+        90deg,
+        white,
+        var(--blue),
+        var(--purple)
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+}
+
+.hero p {
+    max-width: 560px;
+
+    margin: 28px 0;
+
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.button {
+    display: inline-block;
+
+    padding: 14px 21px;
+
+    border-radius: 11px;
+
+    font-weight: 900;
+    text-decoration: none;
+}
+
+.button-primary {
+    background: linear-gradient(
+        100deg,
+        var(--blue),
+        var(--purple)
+    );
+
+    color: white;
+}
+
+.button-secondary {
+    border: 1px solid var(--border);
+    background: #11141b;
+    color: white;
+}
+
+/* =========================
+   CONTROLLER VISUAL
+========================= */
+
+.hero-controller {
+    position: relative;
+
+    width: 100%;
+    max-width: 540px;
+
+    aspect-ratio: 1.55;
+
+    margin: auto;
+
+    filter: drop-shadow(
+        0 35px 50px rgba(0,0,0,.65)
+    );
+}
+
+.controller-glow {
+    position: absolute;
+
+    width: 420px;
+    height: 420px;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%,-50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(56,169,255,.30),
+            rgba(129,92,255,.13),
+            transparent 70%
+        );
+}
+
+.controller-body {
+    position: absolute;
+
+    inset: 17% 7% 10%;
+
+    background:
+        linear-gradient(
+            145deg,
+            #292e39,
+            #0d1016
+        );
+
+    border: 1px solid #414754;
+
+    border-radius:
+        28% 28% 35% 35% /
+        35% 35% 28% 28%;
+
+    transform: rotate(-2deg);
+
+    box-shadow:
+        inset 0 0 30px rgba(255,255,255,.035);
+}
+
+.controller-grip {
+    position: absolute;
+
+    width: 24%;
+    height: 43%;
+
+    bottom: 3%;
+
+    background:
+        linear-gradient(
+            145deg,
+            #1b2029,
+            #080a0e
+        );
+
+    border: 1px solid #363c48;
+
+    border-radius: 45%;
+}
+
+.controller-grip.left {
+    left: 12%;
+    transform: rotate(12deg);
+}
+
+.controller-grip.right {
+    right: 12%;
+    transform: rotate(-12deg);
+}
+
+.touchpad {
+    position: absolute;
+
+    left: 37%;
+    top: 25%;
+
+    width: 26%;
+    height: 28%;
+
+    background: #090b10;
+
+    border:
+        1px solid #383e4b;
+
+    border-radius: 18px;
+}
+
+.stick {
+    position: absolute;
+
+    width: 11%;
+    aspect-ratio: 1;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #626a79,
+            #090b0f 68%
+        );
+
+    border: 2px solid #202530;
+}
+
+.stick.left {
+    left: 29%;
+    top: 39%;
+}
+
+.stick.right {
+    right: 29%;
+    top: 39%;
+}
+
+/* D-PAD */
+
+.dpad {
+    position: absolute;
+
+    left: 18%;
+    top: 39%;
+
+    width: 15%;
+    aspect-ratio: 1;
+}
+
+.dpad::before,
+.dpad::after {
+    content: "";
+
+    position: absolute;
+
+    background: #090b10;
+
+    border: 1px solid #343a47;
+
+    border-radius: 5px;
+}
+
+.dpad::before {
+    width: 100%;
+    height: 34%;
+
+    top: 33%;
+}
+
+.dpad::after {
+    height: 100%;
+    width: 34%;
+
+    left: 33%;
+}
+
+/* BUTTONS */
+
+.abxy {
+    position: absolute;
+
+    right: 18%;
+    top: 36%;
+
+    width: 18%;
+    aspect-ratio: 1;
+}
+
+.abxy i {
+    position: absolute;
+
+    width: 28%;
+    aspect-ratio: 1;
+
+    border-radius: 50%;
+
+    background: #11151d;
+
+    border: 1px solid #3b414e;
+}
+
+.abxy i:nth-child(1) {
+    left: 36%;
+    top: 0;
+}
+
+.abxy i:nth-child(2) {
+    right: 0;
+    top: 36%;
+}
+
+.abxy i:nth-child(3) {
+    left: 36%;
+    bottom: 0;
+}
+
+.abxy i:nth-child(4) {
+    left: 0;
+    top: 36%;
+}
+
+/* =========================
+   FEATURES
+========================= */
+
+.features-section {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+}
+
+.feature {
+    padding: 25px;
+
+    border-right: 1px solid var(--border);
+}
+
+.feature:last-child {
+    border-right: none;
+}
+
+.feature strong {
+    display: block;
+
+    font-size: 20px;
+
+    margin-bottom: 5px;
+}
+
+.feature small {
+    color: var(--muted);
+}
+
+/* =========================
+   SECTION TITLES
+========================= */
+
+.section-title {
+    display: flex;
+
+    align-items: flex-end;
+    justify-content: space-between;
+
+    gap: 30px;
+
+    margin-bottom: 40px;
+}
+
+.section-title h2 {
+    font-size: clamp(38px,5vw,60px);
+
+    letter-spacing: -3px;
+}
+
+.section-title p {
+    max-width: 500px;
+
+    color: var(--muted);
+}
+
+/* =========================
+   CREATIONS
+========================= */
+
+.creations {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 18px;
+}
+
+.creation-card {
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    transition: .25s;
+}
+
+.creation-card:hover {
+    transform: translateY(-5px);
+
+    border-color:
+        rgba(56,169,255,.35);
+}
+
+.creation-image {
+    aspect-ratio: 4 / 3;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            rgba(56,169,255,.12),
+            transparent 55%
+        ),
+        linear-gradient(
+            135deg,
+            #181c25,
+            #090b10
+        );
+}
+
+.creation-image::after {
+    content: "PHOTO DE TA MANETTE";
+
+    color: #606878;
+
+    font-size: 11px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+}
+
+.creation-info {
+    padding: 20px;
+}
+
+.creation-info h3 {
+    font-size: 21px;
+}
+
+.creation-info p {
+    color: var(--muted);
+
+    font-size: 14px;
+
+    margin-top: 5px;
+}
+
+/* =========================
+   OPTIONS
+========================= */
+
+.options {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap: 15px;
+}
+
+.option {
+    padding: 27px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #141821,
+            #0a0c11
+        );
+
+    border: 1px solid var(--border);
+
+    border-radius: 17px;
+}
+
+.option-icon {
+    font-size: 28px;
+
+    margin-bottom: 17px;
+}
+
+.option h3 {
+    font-size: 18px;
+}
+
+.option p {
+    color: var(--muted);
+
+    font-size: 14px;
+
+    margin-top: 8px;
+}
+
+/* =========================
+   ABOUT
+========================= */
+
+.about {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 55px;
+
+    align-items: center;
+}
+
+.about h2 {
+    font-size: clamp(42px,5vw,62px);
+
+    line-height: .95;
+
+    letter-spacing: -4px;
+}
+
+.about-text {
+    color: var(--muted);
+
+    margin-top: 20px;
+
+    max-width: 560px;
+
+    line-height: 1.7;
+}
+
+.about-box {
+    padding: 42px;
+
+    border-radius: 22px;
+
+    border: 1px solid var(--border);
+
+    background:
+        linear-gradient(
+            145deg,
+            #12151c,
+            #090b10
+        );
+}
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact-box {
+    padding: 55px;
+
+    border-radius: 22px;
+
+    border: 1px solid var(--border);
+
+    background:
+        linear-gradient(
+            110deg,
+            rgba(56,169,255,.08),
+            rgba(129,92,255,.08),
+            rgba(255,60,172,.06)
+        );
+}
+
+.contact-box h2 {
+    font-size: clamp(40px,5vw,62px);
+
+    letter-spacing: -3px;
+}
+
+.contact-box p {
+    color: var(--muted);
+
+    margin: 15px 0 25px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    padding: 35px 0;
+
+    border-top: 1px solid var(--border);
+
+    color: #727989;
+
+    font-size: 13px;
+}
+
+.footer {
+    display: flex;
+
+    justify-content: space-between;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:850px) {
+
+    nav {
+        display: none;
     }
 
-    header {
-      padding: 18px;
-      text-align: center;
-      border-bottom: 1px solid #222;
+    .hero {
+        grid-template-columns: 1fr;
+
+        padding: 65px 0;
     }
 
-    h1 {
-      font-size: 1.3rem;
-      font-weight: 600;
+    .hero-controller {
+        max-width: 500px;
     }
 
-    main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 30px 15px;
-      gap: 30px;
+    .features {
+        grid-template-columns: 1fr 1fr;
     }
 
-    .preview {
-      width: 100%;
-      max-width: 520px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #111;
-      border-radius: 16px;
-      padding: 25px;
-      border: 1px solid #222;
+    .feature {
+        border-bottom: 1px solid var(--border);
     }
 
-    .controller-img {
-      width: 100%;
-      max-width: 460px;
-      height: auto;
-      transition: opacity 0.25s ease;
+    .creations {
+        grid-template-columns: 1fr;
     }
 
-    .section {
-      text-align: center;
+    .options {
+        grid-template-columns: 1fr 1fr;
     }
 
-    .section h2 {
-      font-size: 0.9rem;
-      color: #777;
-      margin-bottom: 14px;
-      font-weight: 500;
+    .about {
+        grid-template-columns: 1fr;
     }
 
-    .controls {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: center;
-      max-width: 520px;
+    section {
+        padding: 75px 0;
+    }
+}
+
+@media(max-width:520px) {
+
+    .features {
+        grid-template-columns: 1fr;
     }
 
-    button {
-      background: #1f1f1f;
-      color: #fff;
-      border: 1px solid #444;
-      padding: 10px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 0.85rem;
-      transition: all 0.2s;
+    .options {
+        grid-template-columns: 1fr;
     }
 
-    button:hover {
-      background: #2a2a2a;
-      border-color: #666;
+    .section-title {
+        display: block;
     }
 
-    button.active {
-      background: #3b82f6;
-      border-color: #3b82f6;
+    .section-title p {
+        margin-top: 12px;
     }
-  </style>
+
+    .contact-box {
+        padding: 32px;
+    }
+
+    .footer {
+        display: block;
+    }
+}
+</style>
 </head>
+
 <body>
-  <header>
-    <h1>Configurateur Manette PS4</h1>
-  </header>
 
-  <main>
-    <div class="preview">
-      <img 
-        id="controller"
-        class="controller-img"
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/DualShock_4.jpg/1280px-DualShock_4.jpg"
-        alt="Manette PS4"
-      >
-    </div>
+<!-- =========================
+     HEADER
+========================= -->
 
-    <div class="section">
-      <h2>Choisis ta couleur</h2>
-      <div class="controls" id="controls">
-        <button onclick="changeColor('black')" class="active">Noir</button>
-        <button onclick="changeColor('white')">Blanc</button>
-        <button onclick="changeColor('blue')">Bleu</button>
-        <button onclick="changeColor('red')">Rouge</button>
-        <button onclick="changeColor('gold')">Doré</button>
-      </div>
-    </div>
-  </main>
+<header>
 
-  <script>
-    // Images de DualShock 4 (sources publiques)
-    const images = {
-      black: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/DualShock_4.jpg/1280px-DualShock_4.jpg",
-      white: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/DualShock_4_White.jpg/1280px-DualShock_4_White.jpg",
-      blue: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/DualShock_4.jpg/1280px-DualShock_4.jpg",
-      red: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/DualShock_4.jpg/1280px-DualShock_4.jpg",
-      gold: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/DualShock_4.jpg/1280px-DualShock_4.jpg"
-    };
+<div class="navbar">
 
-    function changeColor(color) {
-      const img = document.getElementById('controller');
-      
-      img.style.opacity = 0.4;
-      
-      setTimeout(() => {
-        img.src = images[color];
-        img.style.opacity = 1;
-      }, 180);
+<a href="#accueil" class="logo">
+G1st<span>Controllers</span>
+</a>
 
-      // Active button
-      document.querySelectorAll('#controls button').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
-    }
-  </script>
+<nav>
+<a href="#accueil">Accueil</a>
+<a href="#creations">Mes créations</a>
+<a href="#options">Options</a>
+<a href="#apropos">À propos</a>
+</nav>
+
+<a href="#contact" class="header-button">
+Me contacter
+</a>
+
+</div>
+
+</header>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero container" id="accueil">
+
+<div>
+
+<div class="kicker">
+CUSTOM CONTROLLERS
+</div>
+
+<h1>
+PLUS QU'UNE<br>
+<span>MANETTE.</span>
+</h1>
+
+<p>
+Des manettes custom pensées pour le style,
+le feeling et la performance.
+Découvre les créations G1stControllers.
+</p>
+
+<div class="hero-buttons">
+
+<a
+href="#creations"
+class="button button-primary">
+Voir mes créations
+</a>
+
+<a
+href="#options"
+class="button button-secondary">
+Découvrir les options
+</a>
+
+</div>
+
+</div>
+
+
+<div class="hero-controller">
+
+<div class="controller-glow"></div>
+
+<div class="controller-body"></div>
+
+<div class="controller-grip left"></div>
+
+<div class="controller-grip right"></div>
+
+<div class="touchpad"></div>
+
+<div class="stick left"></div>
+
+<div class="stick right"></div>
+
+<div class="dpad"></div>
+
+<div class="abxy">
+
+<i></i>
+<i></i>
+<i></i>
+<i></i>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     FEATURES
+========================= -->
+
+<section class="features-section">
+
+<div class="container features">
+
+<div class="feature">
+<strong>8K</strong>
+<small>Carte haute fréquence</small>
+</div>
+
+<div class="feature">
+<strong>BOUTONS +</strong>
+<small>Commandes supplémentaires</small>
+</div>
+
+<div class="feature">
+<strong>CLICK</strong>
+<small>Feeling souris</small>
+</div>
+
+<div class="feature">
+<strong>CUSTOM</strong>
+<small>Créations personnalisées</small>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     CREATIONS
+========================= -->
+
+<section class="container" id="creations">
+
+<div class="section-title">
+
+<h2>
+MES CRÉATIONS
+</h2>
+
+<p>
+Une sélection de mes manettes custom.
+Les emplacements photos sont prêts à recevoir
+tes vraies photos.
+</p>
+
+</div>
+
+
+<div class="creations">
+
+<article class="creation-card">
+
+<div class="creation-image"></div>
+
+<div class="creation-info">
+
+<h3>Création 01</h3>
+
+<p>
+Manette custom
+</p>
+
+</div>
+
+</article>
+
+
+<article class="creation-card">
+
+<div class="creation-image"></div>
+
+<div class="creation-info">
+
+<h3>Création 02</h3>
+
+<p>
+Manette custom
+</p>
+
+</div>
+
+</article>
+
+
+<article class="creation-card">
+
+<div class="creation-image"></div>
+
+<div class="creation-info">
+
+<h3>Création 03</h3>
+
+<p>
+Manette custom
+</p>
+
+</div>
+
+</article>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     OPTIONS
+========================= -->
+
+<section class="container" id="options">
+
+<div class="section-title">
+
+<h2>
+OPTIONS
+</h2>
+
+<p>
+Les principales modifications proposées
+peuvent être présentées ici.
+</p>
+
+</div>
+
+
+<div class="options">
+
+<div class="option">
+
+<div class="option-icon">
+⚡
+</div>
+
+<h3>
+Carte 8K
+</h3>
+
+<p>
+Modification électronique haute fréquence.
+</p>
+
+</div>
+
+
+<div class="option">
+
+<div class="option-icon">
+＋
+</div>
+
+<h3>
+Boutons supplémentaires
+</h3>
+
+<p>
+Ajout de commandes supplémentaires
+pour personnaliser la prise en main.
+</p>
+
+</div>
+
+
+<div class="option">
+
+<div class="option-icon">
+◉
+</div>
+
+<h3>
+Click souris
+</h3>
+
+<p>
+Un feeling de clic plus direct sur certaines commandes.
+</p>
+
+</div>
+
+
+<div class="option">
+
+<div class="option-icon">
+✦
+</div>
+
+<h3>
+Custom
+</h3>
+
+<p>
+Coques, boutons, joysticks et autres éléments personnalisés.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section class="container" id="apropos">
+
+<div class="about">
+
+<div>
+
+<div class="kicker">
+G1STCONTROLLERS
+</div>
+
+<h2>
+UNE MANETTE<br>
+À TON IMAGE.
+</h2>
+
+<p class="about-text">
+G1stControllers est dédié aux créations de manettes
+custom : modifications, esthétique et personnalisation
+pour créer une manette qui ne ressemble pas aux autres.
+</p>
+
+</div>
+
+
+<div class="about-box">
+
+<h2>
+CRÉÉE.<br>
+MODIFIÉE.<br>
+PERSONNALISÉE.
+</h2>
+
+<p class="about-text">
+Le site pourra ensuite évoluer avec des fiches détaillées
+pour chaque création et, plus tard, un configurateur.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     CONTACT
+========================= -->
+
+<section class="container" id="contact">
+
+<div class="contact-box">
+
+<div class="kicker">
+CONTACT
+</div>
+
+<h2>
+UNE CRÉATION EN TÊTE ?
+</h2>
+
+<p>
+Contacte-moi pour discuter d'une manette custom
+ou d'une modification.
+</p>
+
+<a
+href="#"
+class="button button-primary">
+Me contacter
+</a>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+<div class="container footer">
+
+<div>
+© G1stControllers
+</div>
+
+<div>
+Custom Controllers · Créations personnalisées
+</div>
+
+</div>
+
+</footer>
+
 </body>
 </html>
