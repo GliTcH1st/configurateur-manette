@@ -1,31 +1,44 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>G1stControllers — Manettes Custom</title>
 
-<meta name="description"
-content="G1stControllers — Créations et modifications de manettes custom.">
+<meta
+name="description"
+content="G1stControllers — Créations et modifications de manettes custom."
+>
 
 <style>
 
+/* =========================================================
+   VARIABLES
+========================================================= */
+
 :root {
     --black: #050608;
-    --black-2: #090b0f;
+    --black2: #090b0f;
+
     --panel: #101319;
-    --panel-light: #171a21;
+    --panel2: #151922;
 
     --white: #f5f7fa;
     --grey: #9ca3af;
-    --grey-dark: #626977;
+    --grey2: #686f7c;
 
     --blue: #168cff;
     --blue-light: #55b5ff;
 
-    --border: rgba(255,255,255,0.09);
+    --border: rgba(255,255,255,.09);
 }
+
+
+/* =========================================================
+   RESET
+========================================================= */
 
 * {
     margin: 0;
@@ -41,7 +54,7 @@ body {
     background:
         radial-gradient(
             circle at 80% 0%,
-            rgba(22,140,255,0.10),
+            rgba(22,140,255,.10),
             transparent 32%
         ),
         var(--black);
@@ -57,10 +70,23 @@ body {
     overflow-x: hidden;
 }
 
+body.modal-open {
+    overflow: hidden;
+}
+
 a {
     color: inherit;
     text-decoration: none;
 }
+
+button {
+    font-family: inherit;
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
 
 .container {
     width: min(1200px, 92%);
@@ -75,9 +101,10 @@ a {
 header {
     position: sticky;
     top: 0;
+
     z-index: 1000;
 
-    background: rgba(5,6,8,0.88);
+    background: rgba(5,6,8,.88);
 
     backdrop-filter: blur(18px);
 
@@ -88,18 +115,18 @@ header {
     height: 76px;
 
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
 }
 
 .logo {
     font-size: 23px;
-    font-weight: 950;
-    letter-spacing: -1.2px;
-}
 
-.logo strong {
-    color: white;
+    font-weight: 950;
+
+    letter-spacing: -1.2px;
 }
 
 .logo span {
@@ -108,17 +135,20 @@ header {
 
 .navigation {
     display: flex;
+
     align-items: center;
+
     gap: 32px;
 
-    font-size: 13px;
-    font-weight: 800;
-
     color: #b8bec9;
+
+    font-size: 13px;
+
+    font-weight: 800;
 }
 
 .navigation a {
-    transition: 0.2s;
+    transition: .2s;
 }
 
 .navigation a:hover {
@@ -130,11 +160,12 @@ header {
 
     border-radius: 8px;
 
-    border: 1px solid rgba(22,140,255,0.45);
+    border: 1px solid rgba(22,140,255,.45);
 
-    background: rgba(22,140,255,0.08);
+    background: rgba(22,140,255,.08);
 
     font-size: 13px;
+
     font-weight: 900;
 }
 
@@ -149,31 +180,32 @@ header {
     display: grid;
 
     grid-template-columns:
-        0.85fr
-        1.15fr;
+        .82fr
+        1.18fr;
 
     align-items: center;
 
     gap: 60px;
 
-    padding: 70px 0 90px;
+    padding: 65px 0 85px;
 }
 
 .hero-small {
+    color: var(--blue);
+
     font-size: 11px;
+
     font-weight: 900;
 
     letter-spacing: 4px;
-
-    color: var(--blue);
 
     margin-bottom: 20px;
 }
 
 .hero h1 {
-    font-size: clamp(54px, 7vw, 92px);
+    font-size: clamp(54px, 7vw, 94px);
 
-    line-height: 0.88;
+    line-height: .88;
 
     letter-spacing: -6px;
 
@@ -210,6 +242,7 @@ header {
     display: inline-flex;
 
     align-items: center;
+
     justify-content: center;
 
     padding: 14px 21px;
@@ -219,6 +252,10 @@ header {
     font-size: 13px;
 
     font-weight: 900;
+
+    border: none;
+
+    cursor: pointer;
 }
 
 .button-blue {
@@ -227,7 +264,7 @@ header {
     color: white;
 
     box-shadow:
-        0 10px 30px rgba(22,140,255,0.22);
+        0 10px 30px rgba(22,140,255,.22);
 }
 
 .button-dark {
@@ -238,254 +275,85 @@ header {
 
 
 /* =========================================================
-   MANETTE VISUELLE
+   VRAIE PHOTO DU HERO
 ========================================================= */
 
-.hero-product {
+.hero-photo {
     position: relative;
 
-    min-height: 500px;
+    min-height: 560px;
 
     display: flex;
 
     align-items: center;
+
     justify-content: center;
+
+    border-radius: 22px;
+
+    overflow: hidden;
 }
 
-.product-glow {
+.hero-photo-glow {
     position: absolute;
 
-    width: 530px;
-    height: 530px;
+    width: 520px;
+    height: 520px;
 
     border-radius: 50%;
 
     background:
         radial-gradient(
             circle,
-            rgba(22,140,255,0.24),
-            rgba(22,140,255,0.06) 45%,
+            rgba(22,140,255,.28),
+            rgba(22,140,255,.08) 42%,
             transparent 70%
         );
+
+    filter: blur(5px);
 }
 
-.controller {
-    position: relative;
-
-    width: min(650px,100%);
-
-    aspect-ratio: 1.75;
-
-    filter:
-        drop-shadow(
-            0 35px 45px rgba(0,0,0,0.75)
-        );
-}
-
-.controller-body {
-    position: absolute;
-
-    left: 9%;
-    right: 9%;
-    top: 17%;
-    bottom: 13%;
-
-    background:
-        linear-gradient(
-            145deg,
-            #272c35,
-            #101319 65%,
-            #080a0d
-        );
-
-    border:
-        1px solid #3c434e;
-
-    border-radius:
-        31% 31% 25% 25% /
-        39% 39% 30% 30%;
-
-    box-shadow:
-        inset 0 8px 20px rgba(255,255,255,0.025),
-        inset 0 -20px 40px rgba(0,0,0,0.35);
-}
-
-.controller-grip {
-    position: absolute;
-
-    bottom: 0;
-
-    width: 25%;
-    height: 48%;
-
-    background:
-        linear-gradient(
-            145deg,
-            #20252d,
-            #080a0d
-        );
-
-    border: 1px solid #343b46;
-
-    border-radius: 50%;
-}
-
-.controller-grip.left {
-    left: 10%;
-    transform: rotate(12deg);
-}
-
-.controller-grip.right {
-    right: 10%;
-    transform: rotate(-12deg);
-}
-
-.touchpad {
-    position: absolute;
-
-    width: 25%;
-    height: 26%;
-
-    left: 37.5%;
-    top: 25%;
-
-    border-radius: 14px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #15191f,
-            #080a0d
-        );
-
-    border: 1px solid #363d47;
-}
-
-.light {
-    position: absolute;
-
-    width: 16%;
-    height: 3%;
-
-    left: 42%;
-
-    top: 21%;
-
-    border-radius: 20px;
-
-    background: var(--blue);
-
-    box-shadow:
-        0 0 22px rgba(22,140,255,0.7);
-}
-
-.stick {
-    position: absolute;
-
-    width: 12%;
-    aspect-ratio: 1;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle at 35% 30%,
-            #555d68,
-            #0b0d11 68%
-        );
-
-    border:
-        2px solid #1d222a;
-}
-
-.stick.left {
-    left: 28%;
-    top: 42%;
-}
-
-.stick.right {
-    right: 28%;
-    top: 42%;
-}
-
-.dpad {
-    position: absolute;
-
-    left: 17%;
-    top: 39%;
-
-    width: 14%;
-    aspect-ratio: 1;
-}
-
-.dpad::before,
-.dpad::after {
+.hero-photo::after {
     content: "";
 
     position: absolute;
 
-    background: #090b0e;
+    inset: 0;
 
-    border:
-        1px solid #3b414b;
+    background:
+        linear-gradient(
+            180deg,
+            transparent 50%,
+            rgba(5,6,8,.35)
+        );
 
-    border-radius: 5px;
+    pointer-events: none;
 }
 
-.dpad::before {
+.hero-photo img {
+    position: relative;
+
+    z-index: 2;
+
     width: 100%;
-    height: 34%;
-    top: 33%;
+
+    max-height: 560px;
+
+    object-fit: contain;
+
+    display: block;
+
+    filter:
+        drop-shadow(
+            0 30px 40px rgba(0,0,0,.7)
+        );
+
+    transition:
+        transform .6s ease;
 }
 
-.dpad::after {
-    height: 100%;
-    width: 34%;
-    left: 33%;
-}
-
-.buttons {
-    position: absolute;
-
-    right: 17%;
-    top: 37%;
-
-    width: 17%;
-    aspect-ratio: 1;
-}
-
-.buttons i {
-    position: absolute;
-
-    width: 27%;
-    aspect-ratio: 1;
-
-    border-radius: 50%;
-
-    background: #11151b;
-
-    border:
-        1px solid #3e4550;
-}
-
-.buttons i:nth-child(1) {
-    left: 36%;
-    top: 0;
-}
-
-.buttons i:nth-child(2) {
-    right: 0;
-    top: 36%;
-}
-
-.buttons i:nth-child(3) {
-    left: 36%;
-    bottom: 0;
-}
-
-.buttons i:nth-child(4) {
-    left: 0;
-    top: 36%;
+.hero-photo:hover img {
+    transform: scale(1.025);
 }
 
 
@@ -495,9 +363,10 @@ header {
 
 .intro-strip {
     border-top: 1px solid var(--border);
+
     border-bottom: 1px solid var(--border);
 
-    background: rgba(255,255,255,0.015);
+    background: rgba(255,255,255,.015);
 }
 
 .intro-grid {
@@ -510,8 +379,7 @@ header {
 .intro-item {
     padding: 24px;
 
-    border-right:
-        1px solid var(--border);
+    border-right: 1px solid var(--border);
 }
 
 .intro-item:last-child {
@@ -527,7 +395,7 @@ header {
 }
 
 .intro-item span {
-    color: var(--grey-dark);
+    color: var(--grey2);
 
     font-size: 12px;
 }
@@ -585,7 +453,7 @@ section {
 
 
 /* =========================================================
-   CRÉATIONS
+   SHOWROOM
 ========================================================= */
 
 .showroom {
@@ -611,6 +479,19 @@ section {
     border: 1px solid var(--border);
 
     background: var(--panel);
+
+    cursor: pointer;
+
+    transition:
+        transform .3s,
+        border-color .3s;
+}
+
+.showcase-card:hover {
+    transform: translateY(-5px);
+
+    border-color:
+        rgba(22,140,255,.4);
 }
 
 .showcase-card.small {
@@ -622,11 +503,7 @@ section {
 
     inset: 0;
 
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
+    overflow: hidden;
 
     background:
         radial-gradient(
@@ -641,16 +518,21 @@ section {
         );
 }
 
-.showcase-photo::before {
-    content: "TA PHOTO";
+.showcase-photo img {
+    width: 100%;
+    height: 100%;
 
-    font-size: 11px;
+    object-fit: cover;
 
-    font-weight: 900;
+    display: block;
 
-    letter-spacing: 3px;
+    transition:
+        transform .6s;
+}
 
-    color: #596170;
+.showcase-card:hover
+.showcase-photo img {
+    transform: scale(1.05);
 }
 
 .showcase-overlay {
@@ -665,7 +547,7 @@ section {
     background:
         linear-gradient(
             transparent,
-            rgba(0,0,0,.9)
+            rgba(0,0,0,.94)
         );
 }
 
@@ -719,8 +601,7 @@ section {
             #0b0d11
         );
 
-    border:
-        1px solid var(--border);
+    border: 1px solid var(--border);
 
     border-radius: 15px;
 
@@ -762,7 +643,7 @@ section {
 
 
 /* =========================================================
-   SECTION MANETTES CUSTOM
+   SECTION CUSTOM
 ========================================================= */
 
 .custom-section {
@@ -807,18 +688,17 @@ section {
     align-items: center;
 
     justify-content: center;
+
+    overflow: hidden;
 }
 
-.custom-image::before {
-    content: "PHOTO DE TA MANETTE";
+.custom-image img {
+    width: 100%;
+    height: 100%;
 
-    color: #596170;
+    object-fit: cover;
 
-    font-size: 11px;
-
-    font-weight: 900;
-
-    letter-spacing: 3px;
+    display: block;
 }
 
 .custom-copy h2 {
@@ -944,6 +824,307 @@ footer {
 
 
 /* =========================================================
+   MODAL
+========================================================= */
+
+.creation-modal {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 2000;
+
+    display: none;
+
+    background:
+        rgba(0,0,0,.88);
+
+    backdrop-filter: blur(14px);
+
+    overflow-y: auto;
+
+    padding: 40px 20px;
+}
+
+.creation-modal.active {
+    display: block;
+}
+
+.modal-box {
+    width: min(1100px,100%);
+
+    margin: 30px auto;
+
+    background:
+        linear-gradient(
+            145deg,
+            #11151c,
+            #080a0d
+        );
+
+    border: 1px solid var(--border);
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 40px 100px rgba(0,0,0,.7);
+}
+
+.modal-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 20px 25px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.modal-label {
+    color: var(--blue);
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 3px;
+}
+
+.close-modal {
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+
+    border: 1px solid var(--border);
+
+    background: #11151b;
+
+    color: white;
+
+    font-size: 22px;
+
+    cursor: pointer;
+}
+
+.modal-content {
+    display: grid;
+
+    grid-template-columns:
+        1.15fr
+        .85fr;
+}
+
+.modal-gallery {
+    padding: 25px;
+
+    background: #080a0d;
+}
+
+.main-image {
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 1 / .78;
+
+    overflow: hidden;
+
+    border-radius: 14px;
+
+    border: 1px solid var(--border);
+
+    background: #11151a;
+}
+
+.main-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+.gallery-arrow {
+    position: absolute;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(255,255,255,.15);
+
+    background: rgba(0,0,0,.65);
+
+    color: white;
+
+    font-size: 20px;
+
+    cursor: pointer;
+
+    z-index: 2;
+}
+
+.gallery-arrow.prev {
+    left: 12px;
+}
+
+.gallery-arrow.next {
+    right: 12px;
+}
+
+.thumbnails {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap: 10px;
+
+    margin-top: 12px;
+}
+
+.thumbnail {
+    aspect-ratio: 1;
+
+    overflow: hidden;
+
+    border-radius: 8px;
+
+    border: 1px solid var(--border);
+
+    cursor: pointer;
+
+    opacity: .55;
+
+    transition: .2s;
+}
+
+.thumbnail.active {
+    opacity: 1;
+
+    border-color: var(--blue);
+}
+
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.modal-info {
+    padding: 40px 35px;
+}
+
+.modal-info .label {
+    color: var(--blue);
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 3px;
+}
+
+.modal-info h2 {
+    font-size: clamp(35px,4vw,55px);
+
+    line-height: .95;
+
+    letter-spacing: -3px;
+
+    margin-top: 10px;
+}
+
+.modal-description {
+    color: var(--grey);
+
+    font-size: 14px;
+
+    line-height: 1.7;
+
+    margin-top: 20px;
+}
+
+.modal-mods {
+    margin-top: 30px;
+}
+
+.modal-mods-title {
+    font-size: 10px;
+
+    color: var(--blue);
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 12px;
+}
+
+.mod-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.mod-list-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 11px 13px;
+
+    border-radius: 8px;
+
+    background: rgba(255,255,255,.035);
+
+    border: 1px solid rgba(255,255,255,.05);
+
+    color: #d9dde5;
+
+    font-size: 13px;
+}
+
+.mod-list-item::before {
+    content: "";
+
+    width: 6px;
+    height: 6px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: var(--blue);
+
+    box-shadow:
+        0 0 8px rgba(22,140,255,.7);
+}
+
+.modal-button {
+    width: 100%;
+
+    margin-top: 30px;
+}
+
+
+/* =========================================================
    MOBILE
 ========================================================= */
 
@@ -959,8 +1140,8 @@ footer {
         padding-top: 60px;
     }
 
-    .hero-product {
-        min-height: 390px;
+    .hero-photo {
+        min-height: 420px;
     }
 
     .intro-grid {
@@ -987,7 +1168,12 @@ footer {
     .about-grid {
         grid-template-columns: 1fr;
     }
+
+    .modal-content {
+        grid-template-columns: 1fr;
+    }
 }
+
 
 @media(max-width:600px) {
 
@@ -1003,11 +1189,11 @@ footer {
         letter-spacing: -4px;
     }
 
-    .hero-product {
+    .hero-photo {
         min-height: 280px;
     }
 
-    .product-glow {
+    .hero-photo-glow {
         width: 320px;
         height: 320px;
     }
@@ -1041,6 +1227,19 @@ footer {
     .footer-inner div + div {
         margin-top: 8px;
     }
+
+    .modal-gallery {
+        padding: 15px;
+    }
+
+    .modal-info {
+        padding: 30px 20px;
+    }
+
+    .thumbnails {
+        grid-template-columns:
+            repeat(4,1fr);
+    }
 }
 
 </style>
@@ -1059,7 +1258,7 @@ footer {
 <div class="container header-inner">
 
 <a href="#accueil" class="logo">
-<strong>G1st</strong><span>Controllers</span>
+G1st<span>Controllers</span>
 </a>
 
 <nav class="navigation">
@@ -1082,9 +1281,7 @@ Modifications
 
 </nav>
 
-<a
-href="#contact"
-class="header-contact">
+<a href="#contact" class="header-contact">
 CONTACT
 </a>
 
@@ -1143,40 +1340,17 @@ LES MODIFICATIONS
 
 
 
-<!-- VISUEL -->
+<!-- ======================================================
+     TA VRAIE PHOTO
+====================================================== -->
 
-<div class="hero-product">
+<div class="hero-photo">
 
-<div class="product-glow"></div>
+<div class="hero-photo-glow"></div>
 
-<div class="controller">
-
-<div class="controller-body"></div>
-
-<div class="controller-grip left"></div>
-
-<div class="controller-grip right"></div>
-
-<div class="touchpad"></div>
-
-<div class="light"></div>
-
-<div class="stick left"></div>
-
-<div class="stick right"></div>
-
-<div class="dpad"></div>
-
-<div class="buttons">
-
-<i></i>
-<i></i>
-<i></i>
-<i></i>
-
-</div>
-
-</div>
+<img
+src="images/hero-manette.jpg"
+alt="Manette Custom G1stControllers">
 
 </div>
 
@@ -1242,10 +1416,12 @@ Feeling souris
 
 
 <!-- ======================================================
-     CRÉATIONS
+     SHOWROOM
 ====================================================== -->
 
-<section class="container" id="creations">
+<section
+class="container"
+id="creations">
 
 
 <div class="section-heading">
@@ -1265,74 +1441,18 @@ CRÉATIONS
 
 
 <p>
-Découvre les manettes custom réalisées par
-G1stControllers. Chaque création peut avoir
-son propre style et ses propres modifications.
+Découvre les manettes custom réalisées
+par G1stControllers.
+Clique sur une création pour découvrir
+sa configuration complète.
 </p>
 
 </div>
 
 
-
-<div class="showroom">
-
-
-<article class="showcase-card">
-
-<div class="showcase-photo"></div>
-
-<div class="showcase-overlay">
-
-<small>G1STCONTROLLERS</small>
-
-<h3>
-TA CRÉATION
-</h3>
-
-<p>
-Ajoute ici la photo de ta manette.
-</p>
-
-</div>
-
-</article>
-
-
-
-<article class="showcase-card small">
-
-<div class="showcase-photo"></div>
-
-<div class="showcase-overlay">
-
-<small>MANETTE CUSTOM</small>
-
-<h3>
-CRÉATION 02
-</h3>
-
-</div>
-
-</article>
-
-
-
-<article class="showcase-card small">
-
-<div class="showcase-photo"></div>
-
-<div class="showcase-overlay">
-
-<small>MANETTE CUSTOM</small>
-
-<h3>
-CRÉATION 03
-</h3>
-
-</div>
-
-</article>
-
+<div
+class="showroom"
+id="showroom">
 </div>
 
 </section>
@@ -1373,7 +1493,6 @@ G1stControllers.
 </div>
 
 
-
 <div class="modifications">
 
 
@@ -1395,7 +1514,6 @@ haute fréquence.
 </div>
 
 
-
 <div class="modification">
 
 <div class="modification-number">
@@ -1412,7 +1530,6 @@ pour personnaliser la prise en main.
 </p>
 
 </div>
-
 
 
 <div class="modification">
@@ -1433,7 +1550,6 @@ un clic plus direct.
 </div>
 
 
-
 <div class="modification">
 
 <div class="modification-number">
@@ -1452,7 +1568,6 @@ de la manette.
 </div>
 
 
-
 <div class="modification">
 
 <div class="modification-number">
@@ -1469,7 +1584,6 @@ le look et le feeling.
 </p>
 
 </div>
-
 
 
 <div class="modification">
@@ -1496,16 +1610,20 @@ Personnalisation des boutons pour donner
 
 
 <!-- ======================================================
-     MANETTES CUSTOM
+     GRANDE PHOTO
 ====================================================== -->
 
 <section class="custom-section">
-
 
 <div class="container custom-grid">
 
 
 <div class="custom-image">
+
+<img
+src="images/hero-manette.jpg"
+alt="Manette Custom G1stControllers">
+
 </div>
 
 
@@ -1528,8 +1646,8 @@ modifications disponibles.
 </p>
 
 <p>
-Chaque création peut être présentée avec ses photos,
-ses modifications et ses caractéristiques.
+Chaque création peut avoir son propre design,
+ses propres modifications et son propre feeling.
 </p>
 
 </div>
@@ -1544,7 +1662,9 @@ ses modifications et ses caractéristiques.
      À PROPOS
 ====================================================== -->
 
-<section class="container" id="apropos">
+<section
+class="container"
+id="apropos">
 
 
 <div class="about-grid">
@@ -1577,9 +1697,8 @@ le style, les commandes ou le feeling de la manette.
 </p>
 
 <p class="about-copy">
-Le site pourra évoluer par la suite avec des fiches
-détaillées pour chaque création et éventuellement
-un configurateur.
+Le showroom présente les différentes créations
+et leurs configurations.
 </p>
 
 </div>
@@ -1648,6 +1767,603 @@ Manettes Custom · Créations personnalisées
 </div>
 
 </footer>
+
+
+
+<!-- ======================================================
+     FICHE CRÉATION
+====================================================== -->
+
+<div
+class="creation-modal"
+id="creationModal"
+aria-hidden="true">
+
+
+<div class="modal-box">
+
+
+<div class="modal-top">
+
+<div class="modal-label">
+G1STCONTROLLERS · CRÉATION
+</div>
+
+<button
+class="close-modal"
+onclick="closeCreation()"
+aria-label="Fermer">
+×
+</button>
+
+</div>
+
+
+<div class="modal-content">
+
+
+<!-- GALERIE -->
+
+<div class="modal-gallery">
+
+
+<div class="main-image">
+
+<img
+id="mainCreationImage"
+src=""
+alt="Manette Custom G1stControllers">
+
+
+<button
+class="gallery-arrow prev"
+onclick="previousImage()">
+‹
+</button>
+
+<button
+class="gallery-arrow next"
+onclick="nextImage()">
+›
+</button>
+
+</div>
+
+
+<div
+class="thumbnails"
+id="thumbnails">
+</div>
+
+</div>
+
+
+
+<!-- INFOS -->
+
+<div class="modal-info">
+
+<div
+class="label"
+id="creationLabel">
+MANETTE CUSTOM
+</div>
+
+
+<h2
+id="creationTitle">
+Création
+</h2>
+
+
+<p
+class="modal-description"
+id="creationDescription">
+</p>
+
+
+<div class="modal-mods">
+
+<div class="modal-mods-title">
+MODIFICATIONS
+</div>
+
+
+<div
+class="mod-list"
+id="creationMods">
+</div>
+
+</div>
+
+
+<a
+href="#contact"
+onclick="closeCreation()"
+class="button button-blue modal-button">
+
+DEMANDER CETTE CONFIGURATION
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- ======================================================
+     JAVASCRIPT
+====================================================== -->
+
+<script>
+
+
+/* =========================================================
+   TES CRÉATIONS
+========================================================= */
+
+
+const creations = [
+
+    {
+        title: "G1ST #001",
+
+        label: "MANETTE CUSTOM",
+
+        description:
+        "Première création G1stControllers. " +
+        "Ajoute ici une description de la manette " +
+        "et de ses particularités.",
+
+        images: [
+            "images/creation-01-1.jpg",
+            "images/creation-01-2.jpg",
+            "images/creation-01-3.jpg",
+            "images/creation-01-4.jpg"
+        ],
+
+        modifications: [
+            "Carte 8K",
+            "Boutons supplémentaires",
+            "Click souris",
+            "Coque custom",
+            "Joystick caps",
+            "Boutons custom"
+        ]
+    },
+
+
+    {
+        title: "G1ST #002",
+
+        label: "MANETTE CUSTOM",
+
+        description:
+        "Deuxième création G1stControllers. " +
+        "Présente ici le design et les modifications " +
+        "réalisées sur cette manette.",
+
+        images: [
+            "images/creation-02-1.jpg",
+            "images/creation-02-2.jpg",
+            "images/creation-02-3.jpg"
+        ],
+
+        modifications: [
+            "Carte 8K",
+            "Boutons supplémentaires",
+            "Coque custom",
+            "Boutons custom"
+        ]
+    },
+
+
+    {
+        title: "G1ST #003",
+
+        label: "MANETTE CUSTOM",
+
+        description:
+        "Troisième création G1stControllers. " +
+        "Ajoute ici les informations propres " +
+        "à cette configuration.",
+
+        images: [
+            "images/creation-03-1.jpg",
+            "images/creation-03-2.jpg"
+        ],
+
+        modifications: [
+            "Carte 8K",
+            "Click souris",
+            "Joystick caps",
+            "Finition custom"
+        ]
+    }
+
+];
+
+
+let currentCreation = null;
+
+let currentImage = 0;
+
+
+/* =========================================================
+   SHOWROOM
+========================================================= */
+
+function renderShowroom() {
+
+    const showroom =
+        document.getElementById("showroom");
+
+    showroom.innerHTML = "";
+
+
+    creations.forEach((creation,index) => {
+
+        const card =
+            document.createElement("article");
+
+        card.className =
+            "showcase-card" +
+            (index === 0 ? "" : " small");
+
+
+        card.onclick =
+            () => openCreation(index);
+
+
+        card.innerHTML = `
+
+            <div class="showcase-photo">
+
+                <img
+                    src="${creation.images[0]}"
+                    alt="${creation.title} — Manette Custom G1stControllers"
+                    loading="lazy">
+
+            </div>
+
+            <div class="showcase-overlay">
+
+                <small>
+                    ${creation.label}
+                </small>
+
+                <h3>
+                    ${creation.title}
+                </h3>
+
+                <p>
+                    Voir la création →
+                </p>
+
+            </div>
+
+        `;
+
+
+        showroom.appendChild(card);
+
+    });
+
+}
+
+
+/* =========================================================
+   OUVRIR UNE FICHE
+========================================================= */
+
+function openCreation(index) {
+
+    currentCreation =
+        creations[index];
+
+    currentImage = 0;
+
+
+    document.getElementById(
+        "creationTitle"
+    ).textContent =
+        currentCreation.title;
+
+
+    document.getElementById(
+        "creationLabel"
+    ).textContent =
+        currentCreation.label;
+
+
+    document.getElementById(
+        "creationDescription"
+    ).textContent =
+        currentCreation.description;
+
+
+    renderGallery();
+
+
+    const modal =
+        document.getElementById(
+            "creationModal"
+        );
+
+
+    modal.classList.add("active");
+
+    modal.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+
+    document.body.classList.add(
+        "modal-open"
+    );
+
+}
+
+
+/* =========================================================
+   GALERIE
+========================================================= */
+
+function renderGallery() {
+
+    const image =
+        document.getElementById(
+            "mainCreationImage"
+        );
+
+
+    image.src =
+        currentCreation.images[currentImage];
+
+
+    image.alt =
+        currentCreation.title +
+        " — Manette Custom G1stControllers";
+
+
+    const thumbnails =
+        document.getElementById(
+            "thumbnails"
+        );
+
+
+    thumbnails.innerHTML = "";
+
+
+    currentCreation.images.forEach(
+        (src,index) => {
+
+            const thumbnail =
+                document.createElement("div");
+
+
+            thumbnail.className =
+                "thumbnail" +
+                (
+                    index === currentImage
+                    ? " active"
+                    : ""
+                );
+
+
+            thumbnail.onclick =
+                () => {
+
+                    currentImage = index;
+
+                    renderGallery();
+
+                };
+
+
+            thumbnail.innerHTML = `
+
+                <img
+                    src="${src}"
+                    alt="Photo ${index + 1}">
+
+            `;
+
+
+            thumbnails.appendChild(
+                thumbnail
+            );
+
+        }
+    );
+
+
+    const mods =
+        document.getElementById(
+            "creationMods"
+        );
+
+
+    mods.innerHTML = "";
+
+
+    currentCreation.modifications
+        .forEach(modification => {
+
+            const item =
+                document.createElement("div");
+
+            item.className =
+                "mod-list-item";
+
+            item.textContent =
+                modification;
+
+            mods.appendChild(item);
+
+        });
+
+}
+
+
+/* =========================================================
+   PHOTO SUIVANTE
+========================================================= */
+
+function nextImage() {
+
+    if (!currentCreation)
+        return;
+
+
+    currentImage++;
+
+
+    if (
+        currentImage >=
+        currentCreation.images.length
+    ) {
+        currentImage = 0;
+    }
+
+
+    renderGallery();
+
+}
+
+
+/* =========================================================
+   PHOTO PRÉCÉDENTE
+========================================================= */
+
+function previousImage() {
+
+    if (!currentCreation)
+        return;
+
+
+    currentImage--;
+
+
+    if (currentImage < 0) {
+
+        currentImage =
+            currentCreation.images.length - 1;
+
+    }
+
+
+    renderGallery();
+
+}
+
+
+/* =========================================================
+   FERMER LA FICHE
+========================================================= */
+
+function closeCreation() {
+
+    const modal =
+        document.getElementById(
+            "creationModal"
+        );
+
+
+    modal.classList.remove(
+        "active"
+    );
+
+
+    modal.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+
+    document.body.classList.remove(
+        "modal-open"
+    );
+
+}
+
+
+/* =========================================================
+   CLIQUER EN DEHORS
+========================================================= */
+
+document
+    .getElementById("creationModal")
+    .addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target === this
+            ) {
+
+                closeCreation();
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   CLAVIER
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Escape") {
+
+            closeCreation();
+
+        }
+
+
+        if (
+            currentCreation &&
+            document
+                .getElementById("creationModal")
+                .classList
+                .contains("active")
+        ) {
+
+            if (event.key === "ArrowRight") {
+
+                nextImage();
+
+            }
+
+            if (event.key === "ArrowLeft") {
+
+                previousImage();
+
+            }
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   LANCEMENT
+========================================================= */
+
+renderShowroom();
+
+</script>
 
 
 </body>
